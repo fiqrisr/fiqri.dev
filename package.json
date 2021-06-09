@@ -10,8 +10,12 @@
 		"sass": "node-sass src/styles -o _site/styles --output-style compressed",
 		"sass:watch": "yarn sass && yarn sass -w"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fiqrisr/fiqri.dev.git"
+	},
 	"keywords": [],
-	"author": "",
+	"author": "Fiqri Syah Redha <wibulo27@gmail.com> (https://github.com/fiqrisr)",
 	"license": "ISC",
 	"devDependencies": {
 		"@11ty/eleventy": "^0.12.1",
