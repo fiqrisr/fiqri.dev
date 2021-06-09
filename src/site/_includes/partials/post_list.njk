@@ -1,0 +1,9 @@
+{% if collections.posts.length > 0 %}
+<ul>
+	{% for post in collections.posts | reverse %}
+	<li>
+		<a href="{{ post.url | url }}">{{ post.data.title }}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}

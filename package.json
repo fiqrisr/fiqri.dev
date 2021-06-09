@@ -1,0 +1,23 @@
+{
+	"name": "fiqri.dev",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"clean": "rm -rf _site",
+		"build": "yarn clean && eleventy && yarn sass",
+		"start": "concurrently 'eleventy --serve' 'yarn sass:watch'",
+		"sass": "node-sass src/styles -o _site/styles --output-style compressed",
+		"sass:watch": "yarn sass && yarn sass -w"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@11ty/eleventy": "^0.12.1",
+		"concurrently": "^6.2.0",
+		"js-yaml": "^4.1.0",
+		"luxon": "^1.27.0",
+		"node-sass": "^6.0.0"
+	}
+}

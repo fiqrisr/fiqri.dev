@@ -1,0 +1,8 @@
+title: Fiqri Syah Redha
+description: super simple blog
+lang: en
+theme_config:
+  appearance: "auto"
+  back_home_text: ".."
+  date_format: "%Y-%m-%d"
+  show_description: true

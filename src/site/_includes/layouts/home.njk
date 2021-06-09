@@ -1,0 +1,11 @@
+---
+layout : base.njk
+---
+
+<header>
+	<h1>fiqri</h1>
+	{% if site.theme_config.show_description %}
+		<p>{{ site.description }}</p>
+	{% endif%}
+</header>
+{% include '../partials/post_list.njk' %}

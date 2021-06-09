@@ -1,0 +1,15 @@
+---
+layout: base.njk
+---
+
+{% include '../partials/back_link.njk' %}
+
+<article>
+	<p class="post-meta">
+		<time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+	</p>
+
+	<h1>{{ page.title }}</h1>
+
+	{{ content | safe }}
+</article>
