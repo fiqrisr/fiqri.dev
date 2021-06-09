@@ -1,6 +1,6 @@
 ---
-title: Hello World
-date: 2021-06-09
+title: Hello
+date: 2021-06-10
 ---
 
-Hello, this is my blog.
+Hello, World!

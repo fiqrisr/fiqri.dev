@@ -8,4 +8,7 @@ layout : base.njk
 		<p>{{ site.description }}</p>
 	{% endif%}
 </header>
-{% include '../partials/post_list.njk' %}
+
+{% include '../partials/menu_item.njk' %}
+
+{{ content | safe }}

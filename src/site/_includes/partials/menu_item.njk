@@ -1,0 +1,18 @@
+<ul>
+  {% for item in data or menu.entries %}
+    <li>
+      {% if item.url %}
+        <a href="{{ item.url }}">{{ item.title | safe }}</a>
+      {% else %}
+        {{ item.title | safe }}
+      {% endif %}
+    </li>
+    {% if item.post_list %}
+      {% include './post_list.njk' %}
+    {% endif %}
+    {% if item.entries %}
+      {% set data = item.entries %}
+      {% include './menu_item.njk' %}
+    {% endif %}
+  {% endfor %}
+</ul>

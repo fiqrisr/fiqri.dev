@@ -1,0 +1,10 @@
+entries:
+  - title: me
+    entries:
+      - title: email
+        url: mailto:fiqrisyahredha@gmail.com
+      - title: github
+        url: https://github.com/fiqrisr
+
+  - title: posts
+    post_list: true
