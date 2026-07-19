@@ -73,7 +73,7 @@ export const CustomCursor = () => {
   return (
     <motion.div
       className={cn(
-        "fixed top-0 left-0 z-9999 pointer-events-none",
+        "fixed top-0 left-0 z-cursor pointer-events-none",
         isDark ? "mix-blend-normal" : "mix-blend-difference",
       )}
       style={{ x, y }}
@@ -81,8 +81,8 @@ export const CustomCursor = () => {
       <motion.div
         className="relative -translate-x-1/2 -translate-y-1/2"
         animate={{
-          width: isHovering ? 48 : 20,
-          height: isHovering ? 48 : 20,
+          width: isHovering ? 32 : 16,
+          height: isHovering ? 32 : 16,
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28 }}
       >

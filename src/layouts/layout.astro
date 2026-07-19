@@ -1,5 +1,6 @@
 ---
 import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/500.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -9,6 +10,7 @@ import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import "../styles/global.css";
 import SeoHead from "../components/seo-head.astro";
+import { CustomCursor } from "../components/custom-cursor";
 import { ScrollToTop } from "../components/scroll-to-top";
 import { ThemeToggle } from "../components/theme-toggle";
 
@@ -50,7 +52,14 @@ const { title, description, keywords, type } = Astro.props;
   <body
     class="bg-bg-base text-border-dark font-body antialiased overflow-x-hidden"
   >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-chrome focus:px-4 focus:py-2 focus:bg-secondary focus:border-4 focus:border-black focus:font-mono focus:text-sm focus:font-bold focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+    >
+      Skip to content
+    </a>
     <slot />
+    <CustomCursor client:load />
     <ScrollToTop client:load />
     <ThemeToggle client:load />
   </body>

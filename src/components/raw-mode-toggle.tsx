@@ -19,14 +19,14 @@ export const RawModeToggle = () => {
 
   return (
     <>
-      <div className="fixed top-6 right-6 z-50 flex items-center gap-3">
+      <div className="fixed top-6 right-6 z-chrome flex items-center gap-3">
         <span className="font-mono text-xs font-bold uppercase select-none bg-bg-base border-2 border-black px-2 py-1">
           RAW
         </span>
         <button
           type="button"
           onClick={toggle}
-          className="relative w-16 h-9 border-4 border-black bg-bg-base shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
+          className="relative w-16 h-9 border-4 border-black bg-bg-base shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150 active:shadow-none active:translate-x-[4px] active:translate-y-[4px]"
           aria-label="Toggle raw mode"
           aria-pressed={isRaw}
         >
@@ -44,7 +44,7 @@ export const RawModeToggle = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="fixed inset-0 z-40 bg-bg-base overflow-auto p-8 pt-24"
+          className="fixed inset-0 z-overlay bg-bg-base overflow-auto p-8 pt-24"
         >
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center gap-4 mb-8">

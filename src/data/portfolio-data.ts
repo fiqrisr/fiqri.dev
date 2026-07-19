@@ -15,7 +15,7 @@ export type Project = {
   shortDescription: string;
   fullDescription: string;
   techStack: string[];
-  themeColor: string;
+  themeColor: "#FF90E8" | "#FFC900" | "#23A094";
 };
 
 export type Certification = {
@@ -171,7 +171,7 @@ export const portfolioData: PortfolioData = {
       fullDescription:
         "Collaborated on building a job portal platform used by over 100,000 users, creating scalable frontend components that enhanced usability. Participated in product releases and code reviews with 5 frontend engineers, maintaining high code quality standards. Led the development of multiple key features, translating product requirements into technical implementations.",
       techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-      themeColor: "#FF6B6B",
+      themeColor: "#FFC900",
     },
     {
       id: "kantorku-hris",
@@ -182,7 +182,7 @@ export const portfolioData: PortfolioData = {
       fullDescription:
         "Contributed to the development of KantorKu, Indonesia's all-in-one HRIS platform trusted by 5,000+ companies across various industries. Built scalable frontend features including automated payroll processing with PPh21 and BPJS calculation, GPS-validated attendance tracking, leave management, reimbursement workflows, and Employee Self Service modules. Leveraged Next.js rendering strategies for optimal performance and collaborated closely with cross-functional teams to deliver a seamless HR management experience for businesses of all sizes.",
       techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-      themeColor: "#4F46E5",
+      themeColor: "#23A094",
     },
     {
       id: "muslim-explore",
@@ -193,7 +193,7 @@ export const portfolioData: PortfolioData = {
       fullDescription:
         "Developed the public-facing web platform for MuslimExplore, an all-in-one Islamic lifestyle app serving Muslims globally. Built features including global prayer time lookup, a Hadith browser spanning major collections (Sahih al-Bukhari, Sahih Muslim, Abu Dawood, and more), and a halal restaurant and meat shop discovery tool. Used Next.js with Tailwind CSS to deliver a performant, ad-free experience.",
       techStack: ["Next.js", "Tailwind CSS"],
-      themeColor: "#22C55E",
+      themeColor: "#FF90E8",
     },
     {
       id: "nekotoko-pos",

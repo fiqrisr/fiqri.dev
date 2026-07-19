@@ -4,15 +4,13 @@ import { HeroTextReveal } from "../components/hero-text-reveal";
 import { DraggableTerminal } from "../components/draggable-terminal";
 import { SpinningBadge } from "../components/spinning-badge";
 import { HeroDecorations } from "../components/hero-decorations";
-import { CustomCursor } from "../components/custom-cursor";
 
 const { personal } = portfolioData;
 ---
 
 <section
-  class="relative min-h-screen py-32 border-b-4 border-black overflow-hidden"
+  class="relative min-h-dvh py-32 border-b-4 border-black overflow-hidden"
 >
-  <CustomCursor client:load />
 
   <!-- Exposed HTML tags -->
   <span
@@ -58,13 +56,13 @@ const { personal } = portfolioData;
     <div class="flex gap-4 md:gap-6 flex-wrap relative z-20">
       <a
         href={`mailto:${personal.email}`}
-        class="inline-block py-3 px-6 md:py-5 md:px-10 lg:py-6 lg:px-12 font-heading font-bold text-lg md:text-xl lg:text-2xl border-2 md:border-4 border-black bg-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-100"
+        class="inline-block py-3 px-6 md:py-5 md:px-10 lg:py-6 lg:px-12 font-heading font-bold text-lg md:text-xl lg:text-2xl border-2 md:border-4 border-black bg-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150"
       >
         Get in touch →
       </a>
       <a
         href="#projects"
-        class="inline-block py-3 px-6 md:py-5 md:px-10 lg:py-6 lg:px-12 font-heading font-bold text-lg md:text-xl lg:text-2xl border-2 md:border-4 border-black bg-secondary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-100"
+        class="inline-block py-3 px-6 md:py-5 md:px-10 lg:py-6 lg:px-12 font-heading font-bold text-lg md:text-xl lg:text-2xl border-2 md:border-4 border-black bg-secondary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150"
       >
         View Work ↓
       </a>
@@ -73,7 +71,7 @@ const { personal } = portfolioData;
     <!-- Summary text block -->
     <div class="mt-10 max-w-xl">
       <p
-        class="text-fluid-body font-body text-border-dark bg-bg-base border-2 md:border-4 border-black px-3 py-3 md:px-5 md:py-4 leading-relaxed shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+        class="text-fluid-body font-body text-border-dark bg-bg-base border-2 md:border-4 border-black px-3 py-3 md:px-5 md:py-4 leading-relaxed text-pretty shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
       >
         {personal.summary}
       </p>

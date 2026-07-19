@@ -70,6 +70,7 @@
   h6 {
     font-family: "Space Grotesk", sans-serif;
     font-weight: 700;
+    text-wrap: balance;
   }
 
   h1 {
@@ -99,6 +100,44 @@
     outline-offset: 3px;
     border-radius: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must beat every animation declaration */
+      animation-duration: 0.01ms !important;
+      /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must beat every animation declaration */
+      animation-iteration-count: 1 !important;
+      /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must beat every transition declaration */
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  section[id],
+  footer[id] {
+    scroll-margin-top: 4.5rem;
+  }
+}
+
+@utility z-content {
+  z-index: 10;
+}
+
+@utility z-overlay {
+  z-index: 40;
+}
+
+@utility z-chrome {
+  z-index: 50;
+}
+
+@utility z-cursor {
+  z-index: 100;
 }
 
 @layer utilities {
@@ -164,7 +203,9 @@
   }
 
   body.raw-mode * {
+    /* biome-ignore lint/complexity/noImportantStyles: raw mode is a hard animation kill-switch */
     animation: none !important;
+    /* biome-ignore lint/complexity/noImportantStyles: raw mode is a hard transition kill-switch */
     transition: none !important;
   }
 
@@ -312,24 +353,24 @@
   }
 
   /* Preserve raw-mode toggle UI visibility when raw-mode is active */
-  html.dark body.raw-mode .fixed.z-50 {
+  html.dark body.raw-mode .fixed.z-chrome {
     background-color: transparent;
   }
 
-  html.dark body.raw-mode .fixed.z-50 .bg-bg-base {
+  html.dark body.raw-mode .fixed.z-chrome .bg-bg-base {
     background-color: #1a1a1a;
   }
 
-  html.dark body.raw-mode .fixed.z-50 .bg-secondary {
+  html.dark body.raw-mode .fixed.z-chrome .bg-secondary {
     background-color: #c99200;
     color: #1e1e1e;
   }
 
-  html.dark body.raw-mode .fixed.z-40 {
+  html.dark body.raw-mode .fixed.z-overlay {
     background-color: #1a1a1a;
   }
 
-  html.dark body.raw-mode .fixed.z-40 .bg-secondary {
+  html.dark body.raw-mode .fixed.z-overlay .bg-secondary {
     background-color: #c99200;
     color: #1e1e1e;
   }

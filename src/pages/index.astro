@@ -3,6 +3,7 @@ import Layout from "../layouts/layout.astro";
 import HeroSection from "../partials/hero-section.astro";
 import MarqueeBanner from "../partials/marquee-banner.astro";
 import ExperienceTimeline from "../partials/experience-timeline.astro";
+import SectionNav from "../partials/section-nav.astro";
 import FooterCta from "../partials/footer-cta.astro";
 import { ProjectGallery } from "../partials/project-gallery";
 import { SkillsChaos } from "../partials/skills-chaos";
@@ -17,7 +18,8 @@ const { personal } = portfolioData;
   description={personal.summary}
 >
   <RawModeToggle client:load />
-  <main>
+  <SectionNav />
+  <main id="main-content">
     <HeroSection />
     <MarqueeBanner />
     <ExperienceTimeline />

@@ -39,7 +39,7 @@ const DialogPortal = ({ onClose, children }: { onClose: () => void; children: Re
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 z-chrome flex items-start sm:items-center justify-center p-4 overflow-y-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -115,7 +115,7 @@ export const DialogClose = ({ onClose, className }: DialogCloseProps) => {
         "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]",
         "hover:bg-primary hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
         "active:shadow-none active:translate-x-[4px] active:translate-y-[4px]",
-        "transition-all duration-100",
+        "transition-all duration-150",
         "focus-visible:outline-3 focus-visible:outline-dashed focus-visible:outline-secondary",
         className,
       )}
