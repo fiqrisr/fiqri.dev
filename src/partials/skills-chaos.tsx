@@ -75,7 +75,7 @@ const SkillCategoryPanel = ({ category, items, colorIndex }: SkillCategoryPanelP
       <div
         className={`${color} border-b-4 border-black px-4 py-2 flex items-center justify-between`}
       >
-        <span className="font-mono text-xs font-bold uppercase tracking-wider">{category}</span>
+        <h3 className="font-mono text-xs font-bold uppercase tracking-wider">{category}</h3>
         <span className="font-mono text-[10px] text-black/60 border-2 border-black/30 px-2 py-0.5 bg-black/10">
           {items.length}
         </span>

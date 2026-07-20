@@ -40,7 +40,13 @@ const personSchema = {
   jobTitle: personal.role,
   url: Astro.site?.toString(),
   email: personal.email,
-  sameAs: [personal.github, personal.linkedin],
+  sameAs: [
+    personal.github,
+    personal.linkedin,
+    personal.x,
+    personal.facebook,
+    personal.instagram
+  ].filter(Boolean),
   knowsAbout: [
     "Software Engineering",
     "React",
