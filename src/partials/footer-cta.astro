@@ -5,8 +5,11 @@ const { personal } = portfolioData;
 ---
 
 <footer id="contact" class="bg-secondary border-t-4 border-black relative">
+  {/* Hazard stripe at top of footer */}
+  <div class="h-3 bg-hazard-stripes border-b-2 border-black" aria-hidden="true" />
+
   <span
-    class="absolute top-4 left-6 font-mono text-xs text-black/20 select-none pointer-events-none"
+    class="absolute top-8 left-6 font-mono text-xs text-black/20 select-none pointer-events-none"
     >&lt;footer&gt;</span
   >
   <span
@@ -16,11 +19,14 @@ const { personal } = portfolioData;
 
   <div class="py-20 px-4 md:px-8">
     <div class="max-w-7xl mx-auto w-full text-center">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="font-mono text-xs tracking-[0.08em] border-2 border-black px-2 py-1 bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">[ FILE_REF: 004 ]</span>
+      </div>
       <h2 class="font-heading mb-6">Let's Build Something</h2>
       <p
         class="text-fluid-body font-body text-border-dark max-w-xl mx-auto mb-10 leading-relaxed text-pretty"
       >
-        I take on frontend architecture work — design systems, performance
+        I take on software engineering work — design systems, performance
         audits, and React/Next.js builds. If you have a project in mind, email
         me and I'll reply within two working days.
       </p>
@@ -83,6 +89,15 @@ const { personal } = portfolioData;
         © {new Date().getFullYear()}
         {personal.name}. Built with Astro, React & Tailwind CSS.
       </p>
+
+      {/* Industrial spec line */}
+      <div class="mt-6 pt-6 border-t-2 border-black/20 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[0.1em] text-border-dark/50">
+        <span>DOC / FSR-2026-001</span>
+        <span>REV 2.6</span>
+        <span class="bg-barcode h-4 w-16" aria-hidden="true" />
+        <span>SHEET 01 / 01</span>
+        <span>SCALE 1:1</span>
+      </div>
     </div>
   </div>
 </footer>

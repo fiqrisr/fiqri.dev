@@ -117,6 +117,14 @@ export const SkillsChaos = () => {
         <div className="py-16 px-4 md:px-8">
           <div className="max-w-7xl mx-auto w-full">
             <h2 className="sr-only">Skills</h2>
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs md:text-sm tracking-[0.08em] border-2 border-black px-2 py-1 inline-block bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                [ FILE_REF: 003 ]
+              </span>
+              <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-border-dark/50 hidden md:block">
+                {"SYS.CAPABILITIES /// INDEXED"}
+              </span>
+            </div>
             <div className="flex flex-wrap items-end gap-1 mb-10 select-none">
               {[
                 { char: "S", id: "s1" },

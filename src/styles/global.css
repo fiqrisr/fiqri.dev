@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-base: #faf9f6;
+  --color-bg-base: #f4f4f0;
   --color-primary: #ff90e8;
   --color-secondary: #ffc900;
   --color-accent: #23a094;
-  --color-border-dark: #1e1e1e;
-  --color-terminal-bg: #1e1e1e;
+  --color-border-dark: #111111;
+  --color-hazard: #e61919;
+  --color-terminal-bg: #111111;
 
   --font-heading: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
@@ -49,17 +50,47 @@
 @layer base {
   html {
     font-family: "Inter", sans-serif;
-    background-color: #faf9f6;
-    color: #1e1e1e;
+    background-color: #f4f4f0;
+    color: #111111;
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: #faf9f6;
-    background-image: radial-gradient(circle, #1e1e1e 1px, transparent 1px);
+    background-color: #f4f4f0;
+    background-image: radial-gradient(circle, #111111 1px, transparent 1px);
     background-size: 24px 24px;
     background-position: 0 0;
     cursor: none;
+  }
+
+  /* ── Analog degradation: mechanical noise + print registration frame ── */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Blueprint registration frame — crosshairs at viewport corners */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 10px;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath d='M9 0v18M0 9h18' stroke='%23111111' stroke-width='1.5'/%3E%3Ccircle cx='9' cy='9' r='4' fill='none' stroke='%23111111' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-position:
+      left top,
+      right top,
+      left bottom,
+      right bottom;
   }
 
   h1,
@@ -75,18 +106,20 @@
 
   h1 {
     font-size: clamp(3rem, 8vw + 1rem, 7rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
   }
 
   h2 {
     font-size: clamp(2rem, 5vw + 0.5rem, 4.5rem);
-    line-height: 1.1;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
   }
 
   h3 {
     font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
-    line-height: 1.2;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   *:focus-visible {
@@ -141,6 +174,53 @@
 }
 
 @layer utilities {
+  /* ── Industrial assets ── */
+
+  /* Hazard warning stripes */
+  .bg-hazard-stripes {
+    background-color: var(--color-bg-base);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-hazard) 0px,
+      var(--color-hazard) 12px,
+      var(--color-border-dark) 12px,
+      var(--color-border-dark) 24px
+    );
+  }
+
+  /* Barcode — repeating vertical lines */
+  .bg-barcode {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-border-dark) 0px,
+      var(--color-border-dark) 2px,
+      transparent 2px,
+      transparent 4px,
+      var(--color-border-dark) 4px,
+      var(--color-border-dark) 7px,
+      transparent 7px,
+      transparent 9px,
+      var(--color-border-dark) 9px,
+      var(--color-border-dark) 10px,
+      transparent 10px,
+      transparent 14px,
+      var(--color-border-dark) 14px,
+      var(--color-border-dark) 16px,
+      transparent 16px,
+      transparent 19px
+    );
+  }
+
+  /* Blueprint crosshair grid */
+  .bg-blueprint-grid {
+    background-color: var(--color-bg-base);
+    background-image:
+      linear-gradient(var(--color-border-dark) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border-dark) 1px, transparent 1px);
+    background-size: 96px 96px;
+    background-position: center top;
+  }
+
   .bg-diagonal-stripes {
     background-color: var(--color-bg-base);
     background-image: repeating-linear-gradient(
@@ -229,85 +309,102 @@
   /* ── Dark mode ── */
 
   html.dark {
-    --color-bg-base: #1a1a1a;
-    --color-border-dark: #f0ede6;
+    --color-bg-base: #121212;
+    --color-border-dark: #eaeaea;
     --color-secondary: #c99200;
-    --shadow-neo-sm: 2px 2px 0px 0px rgba(240, 237, 230, 0.85);
-    --shadow-neo-base: 4px 4px 0px 0px rgba(240, 237, 230, 0.85);
-    --shadow-neo-lg: 8px 8px 0px 0px rgba(240, 237, 230, 0.85);
+    --shadow-neo-sm: 2px 2px 0px 0px rgba(234, 234, 234, 0.85);
+    --shadow-neo-base: 4px 4px 0px 0px rgba(234, 234, 234, 0.85);
+    --shadow-neo-lg: 8px 8px 0px 0px rgba(234, 234, 234, 0.85);
     color-scheme: dark;
   }
 
   html.dark body {
-    background-color: #1a1a1a;
-    background-image: radial-gradient(circle, rgba(240, 237, 230, 0.12) 1px, transparent 1px);
-    color: #f0ede6;
+    background-color: #121212;
+    background-image: radial-gradient(circle, rgba(234, 234, 234, 0.12) 1px, transparent 1px);
+    color: #eaeaea;
+  }
+
+  html.dark body::before {
+    mix-blend-mode: screen;
+  }
+
+  html.dark body::after {
+    opacity: 0.22;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cpath d='M9 0v18M0 9h18' stroke='%23eaeaea' stroke-width='1.5'/%3E%3Ccircle cx='9' cy='9' r='4' fill='none' stroke='%23eaeaea' stroke-width='1.5'/%3E%3C/svg%3E");
   }
 
   html.dark .border-black {
-    border-color: #f0ede6;
+    border-color: #eaeaea;
   }
 
   html.dark .bg-white {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   /* Override hardcoded neo-brutalism box shadows */
   html.dark [class~="shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"] {
-    box-shadow: 2px 2px 0px 0px rgba(240, 237, 230, 0.85);
+    box-shadow: 2px 2px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
   html.dark [class~="shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"],
-  html.dark [class~="shadow-[4px_4px_0px_0px_rgba(30,30,30,1)]"] {
-    box-shadow: 4px 4px 0px 0px rgba(240, 237, 230, 0.85);
+  html.dark [class~="shadow-[4px_4px_0px_0px_rgba(30,30,30,1)]"],
+  html.dark [class~="shadow-[4px_4px_0px_0px_rgba(17,17,17,1)]"] {
+    box-shadow: 4px 4px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
   html.dark [class~="shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"] {
-    box-shadow: 6px 6px 0px 0px rgba(240, 237, 230, 0.85);
+    box-shadow: 6px 6px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
-  html.dark [class~="shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"] {
-    box-shadow: 8px 8px 0px 0px rgba(240, 237, 230, 0.85);
+  html.dark [class~="shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"],
+  html.dark [class~="shadow-[8px_8px_0px_0px_rgba(17,17,17,1)]"] {
+    box-shadow: 8px 8px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
   html.dark [class~="shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]"],
   html.dark [class~="shadow-[12px_12px_0px_0px_rgba(30,30,30,1)]"] {
-    box-shadow: 12px 12px 0px 0px rgba(240, 237, 230, 0.85);
+    box-shadow: 12px 12px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
   /* Override hover shadow variants */
   html.dark [class~="hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"]:hover {
-    box-shadow: 2px 2px 0px 0px rgba(240, 237, 230, 0.85);
+    box-shadow: 2px 2px 0px 0px rgba(234, 234, 234, 0.85);
   }
 
   /* Responsive shadow overrides */
   @media (min-width: 768px) {
     html.dark [class~="md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"] {
-      box-shadow: 4px 4px 0px 0px rgba(240, 237, 230, 0.85);
+      box-shadow: 4px 4px 0px 0px rgba(234, 234, 234, 0.85);
     }
 
     html.dark [class~="md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"] {
-      box-shadow: 8px 8px 0px 0px rgba(240, 237, 230, 0.85);
+      box-shadow: 8px 8px 0px 0px rgba(234, 234, 234, 0.85);
     }
   }
 
   /* -webkit-text-stroke dark mode overrides */
   html.dark [class~="[-webkit-text-stroke:1px_#1E1E1E]"],
-  html.dark [class~="[&]:[-webkit-text-stroke:1px_#1e1e1e]"] {
-    -webkit-text-stroke: 1px #f0ede6;
+  html.dark [class~="[-webkit-text-stroke:1px_#111111]"],
+  html.dark [class~="[&]:[-webkit-text-stroke:1px_#1e1e1e]"],
+  html.dark [class~="[&]:[-webkit-text-stroke:1px_#111111]"] {
+    -webkit-text-stroke: 1px #eaeaea;
   }
 
   @media (min-width: 768px) {
     html.dark [class~="md:[-webkit-text-stroke:2px_#1E1E1E]"],
-    html.dark [class~="md:[&]:[-webkit-text-stroke:2px_#1e1e1e]"] {
-      -webkit-text-stroke: 2px #f0ede6;
+    html.dark [class~="md:[-webkit-text-stroke:2px_#111111]"],
+    html.dark [class~="md:[&]:[-webkit-text-stroke:2px_#1e1e1e]"],
+    html.dark [class~="md:[&]:[-webkit-text-stroke:2px_#111111]"] {
+      -webkit-text-stroke: 2px #eaeaea;
     }
   }
 
   @media (min-width: 1024px) {
     html.dark [class~="lg:[-webkit-text-stroke:3px_#1E1E1E]"],
-    html.dark [class~="lg:[&]:[-webkit-text-stroke:3px_#1e1e1e]"] {
-      -webkit-text-stroke: 3px #f0ede6;
+    html.dark [class~="lg:[-webkit-text-stroke:3px_#111111]"],
+    html.dark [class~="lg:[&]:[-webkit-text-stroke:3px_#1e1e1e]"],
+    html.dark [class~="lg:[&]:[-webkit-text-stroke:3px_#111111]"] {
+      -webkit-text-stroke: 3px #eaeaea;
     }
   }
 
@@ -315,41 +412,41 @@
   html.dark .bg-primary,
   html.dark .bg-secondary,
   html.dark .bg-accent {
-    --color-border-dark: #1e1e1e;
-    color: #1e1e1e;
+    --color-border-dark: #111111;
+    color: #111111;
   }
 
   /* Reset text + variable when bg-bg-base is nested inside a bright-colored parent */
   html.dark .bg-bg-base {
-    --color-border-dark: #f0ede6;
-    color: #f0ede6;
+    --color-border-dark: #eaeaea;
+    color: #eaeaea;
   }
 
   /* Period badges on experience cards need light border-dark regardless of card background */
   html.dark .bg-primary .bg-border-dark,
   html.dark .bg-secondary .bg-border-dark,
   html.dark .bg-accent .bg-border-dark {
-    --color-border-dark: #f0ede6;
+    --color-border-dark: #eaeaea;
   }
 
   /* Raw mode dark overrides */
   html.dark body.raw-mode {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   html.dark body.raw-mode .bg-bg-base {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   html.dark body.raw-mode .bg-primary,
   html.dark body.raw-mode .bg-secondary,
   html.dark body.raw-mode .bg-bg-base {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   html.dark body.raw-mode .bg-accent {
-    background-color: #1a1a1a;
-    color: #f0ede6;
+    background-color: #121212;
+    color: #eaeaea;
   }
 
   /* Preserve raw-mode toggle UI visibility when raw-mode is active */
@@ -358,20 +455,20 @@
   }
 
   html.dark body.raw-mode .fixed.z-chrome .bg-bg-base {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   html.dark body.raw-mode .fixed.z-chrome .bg-secondary {
     background-color: #c99200;
-    color: #1e1e1e;
+    color: #111111;
   }
 
   html.dark body.raw-mode .fixed.z-overlay {
-    background-color: #1a1a1a;
+    background-color: #121212;
   }
 
   html.dark body.raw-mode .fixed.z-overlay .bg-secondary {
     background-color: #c99200;
-    color: #1e1e1e;
+    color: #111111;
   }
 }

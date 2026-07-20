@@ -55,7 +55,7 @@ export type PortfolioData = {
 export const portfolioData: PortfolioData = {
   personal: {
     name: "Fiqri Syah Redha",
-    role: "Senior Frontend Engineer",
+    role: "Software Engineer",
     email: "fiqrisyahredha@gmail.com",
     phone: "+6285932219260",
     website: "https://fiqri.dev",
@@ -65,7 +65,7 @@ export const portfolioData: PortfolioData = {
     instagram: "https://instagram.com/fiqrisyahredha",
     x: "https://x.com/fiqrisyahredha",
     summary:
-      "Senior Frontend Engineer with 4+ years of experience architecting high-performance web platforms. Specialized in React/Next.js ecosystems. Passionate about scalable architecture, monorepo tooling, and mentoring engineering teams.",
+      "Software Engineer with 4+ years of experience architecting high-performance web platforms. Specialized in React/Next.js ecosystems. Passionate about scalable architecture, monorepo tooling, and mentoring engineering teams.",
   },
   experience: [
     {

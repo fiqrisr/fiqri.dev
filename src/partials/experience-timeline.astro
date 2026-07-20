@@ -21,12 +21,15 @@ const bgColors = ["bg-primary", "bg-secondary", "bg-bg-base", "bg-accent"];
   <div class="py-20 px-4 md:px-8">
     <div class="max-w-7xl mx-auto w-full">
       <div class="mb-16">
-        <span
-          class="font-mono text-xs md:text-sm border-2 border-border-dark px-2 py-1 inline-block bg-bg-base mb-3 md:mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-          >FILE_REF: 001</span
-        >
+        <div class="flex items-end justify-between gap-4 mb-3 md:mb-4">
+          <span
+            class="font-mono text-xs md:text-sm tracking-[0.08em] border-2 border-border-dark px-2 py-1 inline-block bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            >[ FILE_REF: 001 ]</span
+          >
+          <span class="bg-barcode h-6 w-24 hidden md:block" aria-hidden="true" />
+        </div>
         <h2
-          class="relative font-heading text-[clamp(2.5rem,8vw,7rem)] leading-[0.85] text-secondary [-webkit-text-stroke:1px_#1E1E1E] md:[-webkit-text-stroke:2px_#1E1E1E] lg:[-webkit-text-stroke:3px_#1E1E1E]"
+          class="relative font-heading text-[clamp(2.5rem,9vw,8rem)] leading-[0.85] uppercase tracking-[-0.04em] text-hazard [-webkit-text-stroke:1px_#111111] md:[-webkit-text-stroke:2px_#111111] lg:[-webkit-text-stroke:3px_#111111]"
         >
           <span
             class="absolute top-0 left-0 translate-x-1 translate-y-1 md:translate-x-2 md:translate-y-2 text-border-dark select-none pointer-events-none"
@@ -40,6 +43,8 @@ const bgColors = ["bg-primary", "bg-secondary", "bg-bg-base", "bg-accent"];
             <span class="block">EXPERIENCE</span>
           </span>
         </h2>
+        {/* Hazard rule under heading */}
+        <div class="mt-6 h-2 bg-hazard border-2 border-black w-full max-w-md" aria-hidden="true" />
       </div>
 
       <div class="max-w-6xl mx-auto">

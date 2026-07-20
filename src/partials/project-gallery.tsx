@@ -100,6 +100,14 @@ export const ProjectGallery = () => {
 
         <div className="py-16 px-4 md:px-8">
           <div className="max-w-7xl mx-auto w-full">
+            <div className="flex items-center justify-between mb-8">
+              <span className="font-mono text-xs md:text-sm tracking-[0.08em] border-2 border-black px-2 py-1 inline-block bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                [ FILE_REF: 002 ]
+              </span>
+              <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-border-dark/50 hidden md:block">
+                {"DEPLOYED.ARCHITECTURE /// VERIFIED"}
+              </span>
+            </div>
             <p className="text-sm font-mono text-border-dark/70 mb-12 hidden md:block">
               <kbd className="px-1.5 py-0.5 border-2 border-black bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs">
                 j

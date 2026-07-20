@@ -37,10 +37,10 @@ export const HeroTextReveal = ({ name, role }: HeroTextRevealProps) => {
           <motion.h1
             variants={lineVariants}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="font-heading text-[clamp(3.5rem,10vw,8rem)] leading-[1.1] tracking-tighter flex flex-col"
+            className="font-heading text-[clamp(3.5rem,12vw,10rem)] leading-[0.85] tracking-[-0.05em] uppercase flex flex-col"
             aria-label={`${firstName} ${lastName}`}
           >
-            <span className="relative text-border-dark w-fit inline-block border-b-[0.15em] border-primary -mb-1 md:-mb-4">
+            <span className="relative text-border-dark w-fit inline-block border-b-[0.15em] border-hazard -mb-1 md:-mb-4">
               {firstName}
             </span>
             <span className="relative text-border-dark w-fit inline-block border-b-[0.15em] border-accent">
@@ -54,7 +54,7 @@ export const HeroTextReveal = ({ name, role }: HeroTextRevealProps) => {
           <motion.p
             variants={lineVariants}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="font-heading text-[clamp(1.2rem,3.5vw,3.5rem)] leading-none tracking-tight text-transparent uppercase font-bold [&]:[-webkit-text-stroke:1px_#1e1e1e] md:[&]:[-webkit-text-stroke:2px_#1e1e1e] lg:[&]:[-webkit-text-stroke:3px_#1e1e1e]"
+            className="font-heading text-[clamp(1.2rem,3.5vw,3.5rem)] leading-none tracking-[-0.03em] text-transparent uppercase font-bold [&]:[-webkit-text-stroke:1px_#111111] md:[&]:[-webkit-text-stroke:2px_#111111] lg:[&]:[-webkit-text-stroke:3px_#111111]"
           >
             {role}
           </motion.p>

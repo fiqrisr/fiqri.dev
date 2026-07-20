@@ -4,9 +4,17 @@ import { portfolioData } from "../data/portfolio-data";
 
 export const RawModeToggle = () => {
   const [isRaw, setIsRaw] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggle = useCallback(() => {
     setIsRaw((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 32);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -19,7 +27,7 @@ export const RawModeToggle = () => {
 
   return (
     <>
-      <div className="fixed top-6 right-6 z-chrome flex items-center gap-3">
+      <div className={`fixed right-6 z-chrome flex items-center gap-3 transition-all duration-300 ease-in-out ${isScrolled ? 'top-4 md:top-6' : 'top-20 md:top-12'}`}>
         <span className="font-mono text-xs font-bold uppercase select-none bg-bg-base border-2 border-black px-2 py-1">
           RAW
         </span>
