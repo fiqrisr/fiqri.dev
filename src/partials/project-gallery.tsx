@@ -29,6 +29,14 @@ const cardVariants: Variants = {
   },
 };
 
+const getHostname = (link?: string, fallback = "") => {
+  if (!link) return fallback;
+  try {
+    return new URL(link).hostname;
+  } catch {
+    return fallback;
+  }
+};
 export const ProjectGallery = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -146,12 +154,34 @@ export const ProjectGallery = () => {
                     aria-label={`View project: ${project.title}`}
                     onClick={() => openModal(project)}
                     onFocus={() => setActiveIndex(index)}
-                    className={`cursor-pointer h-full flex flex-col p-6 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-150 ${
+                    className={`group cursor-pointer h-full flex flex-col p-6 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-150 ${
                       activeIndex === index
                         ? "ring-4 ring-secondary shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] -translate-x-1 -translate-y-1"
                         : ""
                     }`}
                   >
+                    {project.image && (
+                      <div className="mb-5 border-2 border-black bg-bg-base overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <div className="flex items-center justify-between px-3 py-1.5 bg-[#1e1e1e] text-white border-b-2 border-black font-mono text-xs">
+                          <span className="truncate max-w-[200px] text-white/90">
+                            {getHostname(project.link, `${project.id}.app`)}
+                          </span>
+                          <span className="text-secondary font-bold text-[10px] tracking-wider uppercase">
+                            PREVIEW
+                          </span>
+                        </div>
+                        <div className="relative aspect-[16/10] overflow-hidden bg-bg-base">
+                          <img
+                            src={project.image}
+                            alt={`${project.title} screenshot`}
+                            className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+                            loading="lazy"
+                            width={640}
+                            height={400}
+                          />
+                        </div>
+                      </div>
+                    )}
                     <h3 className="text-2xl font-heading font-bold mb-2">{project.title}</h3>
                     <p className="text-sm text-border-dark font-body mb-4 flex-1">
                       {project.shortDescription}
@@ -174,6 +204,29 @@ export const ProjectGallery = () => {
                   <h3 className="text-3xl font-heading font-bold mb-4 pr-16">
                     {selectedProject.title}
                   </h3>
+
+                  {selectedProject.image && (
+                    <div className="mb-6 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+                      <div className="flex items-center justify-between px-3 py-1.5 bg-[#1e1e1e] text-white font-mono text-xs border-b-2 border-black">
+                        <span className="truncate text-white/90">
+                          {getHostname(selectedProject.link, `${selectedProject.id}.app`)}
+                        </span>
+                        <span className="text-secondary font-bold text-[10px] tracking-wider uppercase">
+                          PREVIEW
+                        </span>
+                      </div>
+                      <div className="relative aspect-[16/10] max-h-[380px] overflow-hidden bg-bg-base">
+                        <img
+                          src={selectedProject.image}
+                          alt={`${selectedProject.title} screenshot`}
+                          className="w-full h-full object-cover object-top"
+                          width={1280}
+                          height={800}
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <p className="text-fluid-body font-body text-border-dark mb-6 leading-relaxed">
                     {selectedProject.fullDescription}
                   </p>

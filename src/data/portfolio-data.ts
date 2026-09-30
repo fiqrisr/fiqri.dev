@@ -12,6 +12,7 @@ export type Project = {
   id: string;
   title: string;
   link?: string;
+  image?: string;
   shortDescription: string;
   fullDescription: string;
   techStack: string[];
@@ -143,7 +144,8 @@ export const portfolioData: PortfolioData = {
     {
       id: "lampu-ai",
       title: "Lampu AI Marketplace",
-      link: "https://lampu.ai",
+      link: "https://lampu.ai/en/",
+      image: "/projects/lampu-ai.png",
       shortDescription:
         "A B2B AI Marketplace managing architecture and release cycles for Buyer and Seller platforms.",
       fullDescription:
@@ -152,9 +154,22 @@ export const portfolioData: PortfolioData = {
       themeColor: "#23A094",
     },
     {
+      id: "cuan",
+      title: "Cuan",
+      link: "https://cuan.fiqri.dev/",
+      image: "/projects/cuan.png",
+      shortDescription:
+        "A smart personal expense tracker and balance monitor as simple as sending a chat message.",
+      fullDescription:
+        "Built Cuan, an intuitive personal finance and expense management platform that enables users to record daily expenses and track bank and e-wallet balances effortlessly through natural chat-like input. Eliminates manual spreadsheet entry with instant financial summaries, intelligent categorizations, and real-time balance synchronization.",
+      techStack: ["React", "Elysia.js", "Bun", "TypeScript", "Cloudflare D1"],
+      themeColor: "#FFC900",
+    },
+    {
       id: "prasasti-center",
       title: "Prasasti Center",
-      link: "https://prasasticenter.com",
+      link: "https://prasasticenter.com/en",
+      image: "/projects/prasasti-center.png",
       shortDescription:
         "A public-facing web platform for a non-profit government organization with a custom CMS and 90+ Lighthouse scores.",
       fullDescription:
@@ -166,6 +181,7 @@ export const portfolioData: PortfolioData = {
       id: "dealls-portal",
       title: "Dealls Job Portal",
       link: "https://dealls.com/",
+      image: "/projects/dealls.png",
       shortDescription:
         "A high-traffic job portal used by 100,000+ users with scalable frontend architecture.",
       fullDescription:
@@ -177,6 +193,7 @@ export const portfolioData: PortfolioData = {
       id: "kantorku-hris",
       title: "KantorKu HRIS",
       link: "https://kantorku.id/",
+      image: "/projects/kantorku.png",
       shortDescription:
         "Indonesia's all-in-one HRIS platform trusted by 5,000+ companies, with payroll, attendance, and HR automation.",
       fullDescription:
@@ -188,23 +205,13 @@ export const portfolioData: PortfolioData = {
       id: "muslim-explore",
       title: "MuslimExplore",
       link: "https://muslimxplore.com/",
+      image: "/projects/muslim-explore.png",
       shortDescription:
         "An all-in-one Islamic lifestyle platform with prayer times, Hadith, and halal location discovery.",
       fullDescription:
         "Developed the public-facing web platform for MuslimExplore, an all-in-one Islamic lifestyle app serving Muslims globally. Built features including global prayer time lookup, a Hadith browser spanning major collections (Sahih al-Bukhari, Sahih Muslim, Abu Dawood, and more), and a halal restaurant and meat shop discovery tool. Used Next.js with Tailwind CSS to deliver a performant, ad-free experience.",
       techStack: ["Next.js", "Tailwind CSS"],
       themeColor: "#FF90E8",
-    },
-    {
-      id: "nekotoko-pos",
-      title: "NekoToko POS Microservices",
-      link: "https://github.com/fiqrisr/nekotoko",
-      shortDescription:
-        "A scalable Point of Sale system built on microservices with RabbitMQ and Nx Monorepo.",
-      fullDescription:
-        "Architected a scalable Point of Sale (POS) system using a Microservices pattern within an Nx Monorepo. Orchestrated asynchronous communication between NestJS services using RabbitMQ message brokers. Managed complex data relationships and persistence using PostgreSQL and Prisma ORM.",
-      techStack: ["React", "Nest.js", "PostgreSQL", "RabbitMQ", "Nx Monorepo"],
-      themeColor: "#FFC900",
     },
   ],
   skills: [
