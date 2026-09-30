@@ -66,7 +66,7 @@ export const portfolioData: PortfolioData = {
     instagram: "https://instagram.com/fiqrisyahredha",
     x: "https://x.com/fiqrisyahredha",
     summary:
-      "Software Engineer with 4+ years of experience architecting high-performance web platforms. Specialized in React/Next.js ecosystems. Passionate about scalable architecture, monorepo tooling, and mentoring engineering teams.",
+      "Software Engineer with 4+ years of experience architecting high-performance web platforms and full-stack systems. Specialized in TypeScript and React/Next.js ecosystems—optimizing bundle sizes, cutting latency, and engineering resilient architectures that scale reliably under heavy production traffic.",
   },
   experience: [
     {
@@ -147,7 +147,7 @@ export const portfolioData: PortfolioData = {
       link: "https://lampu.ai/en/",
       image: "/projects/lampu-ai.png",
       shortDescription:
-        "A B2B AI Marketplace managing architecture and release cycles for Buyer and Seller platforms.",
+        "Enterprise B2B AI marketplace. Architected dual Buyer/Seller platforms, cutting API server load by 40% and container image size by 83%.",
       fullDescription:
         "Led frontend architecture for the AI Marketplace at Lintasarta, managing release cycles for both Buyer and Seller platforms. Pioneered SonarQube integration in CI/CD, optimized Docker builds by 83% (3GB to 500MB), reduced CSS bundle size by 30%, and achieved Rank #1 SEO for key business keywords. Architected state management with TanStack Query, reducing API server load by 40%, and integrated Midtrans and Xendit payment gateways for high-volume secure transactions.",
       techStack: ["React", "Next.js", "TypeScript", "TanStack Query", "Docker", "SonarQube"],
@@ -159,7 +159,7 @@ export const portfolioData: PortfolioData = {
       link: "https://cuan.fiqri.dev/",
       image: "/projects/cuan.png",
       shortDescription:
-        "A smart personal expense tracker and balance monitor as simple as sending a chat message.",
+        "Chat-driven personal finance platform. Replaces manual spreadsheet logging with instant natural-language expense tracking and real-time balance syncing.",
       fullDescription:
         "Built Cuan, an intuitive personal finance and expense management platform that enables users to record daily expenses and track bank and e-wallet balances effortlessly through natural chat-like input. Eliminates manual spreadsheet entry with instant financial summaries, intelligent categorizations, and real-time balance synchronization.",
       techStack: ["React", "Elysia.js", "Bun", "TypeScript", "Cloudflare D1"],
@@ -171,7 +171,7 @@ export const portfolioData: PortfolioData = {
       link: "https://prasasticenter.com/en",
       image: "/projects/prasasti-center.png",
       shortDescription:
-        "A public-facing web platform for a non-profit government organization with a custom CMS and 90+ Lighthouse scores.",
+        "Government portal and custom in-house CMS built with Next.js, achieving 90+ across all Lighthouse Core Web Vitals for non-technical editors.",
       fullDescription:
         "Architected and developed a public-facing web platform for a non-profit government organization using Next.js, seamlessly integrating it with a custom in-house CMS for dynamic content delivery. The CMS features blog pages powered by a WYSIWYG editor, enabling non-technical staff to manage content with ease. Engineered high-performance web pages utilizing Next.js rendering strategies (SSR/SSG) and core web vitals optimization, achieving a 90+ Lighthouse score across Performance, Accessibility, and SEO metrics. Collaborated closely with the backend team to design and consume custom API schemas, ensuring robust data integration and a seamless user experience.",
       techStack: ["Next.js", "TypeScript", "Custom CMS"],
@@ -183,7 +183,7 @@ export const portfolioData: PortfolioData = {
       link: "https://dealls.com/",
       image: "/projects/dealls.png",
       shortDescription:
-        "A high-traffic job portal used by 100,000+ users with scalable frontend architecture.",
+        "High-throughput career platform serving 100,000+ candidates with real-time job discovery and multi-tenant application workflows.",
       fullDescription:
         "Collaborated on building a job portal platform used by over 100,000 users, creating scalable frontend components that enhanced usability. Participated in product releases and code reviews with 5 frontend engineers, maintaining high code quality standards. Led the development of multiple key features, translating product requirements into technical implementations.",
       techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
@@ -195,7 +195,7 @@ export const portfolioData: PortfolioData = {
       link: "https://kantorku.id/",
       image: "/projects/kantorku.png",
       shortDescription:
-        "Indonesia's all-in-one HRIS platform trusted by 5,000+ companies, with payroll, attendance, and HR automation.",
+        "Complete workforce management platform trusted by 5,000+ companies—handling automated PPh21 payroll, GPS attendance, and employee self-service.",
       fullDescription:
         "Contributed to the development of KantorKu, Indonesia's all-in-one HRIS platform trusted by 5,000+ companies across various industries. Built scalable frontend features including automated payroll processing with PPh21 and BPJS calculation, GPS-validated attendance tracking, leave management, reimbursement workflows, and Employee Self Service modules. Leveraged Next.js rendering strategies for optimal performance and collaborated closely with cross-functional teams to deliver a seamless HR management experience for businesses of all sizes.",
       techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
@@ -207,7 +207,7 @@ export const portfolioData: PortfolioData = {
       link: "https://muslimxplore.com/",
       image: "/projects/muslim-explore.png",
       shortDescription:
-        "An all-in-one Islamic lifestyle platform with prayer times, Hadith, and halal location discovery.",
+        "Global Islamic lifestyle app delivering ad-free prayer schedules, canonical Hadith search, and halal merchant discovery across international markets.",
       fullDescription:
         "Developed the public-facing web platform for MuslimExplore, an all-in-one Islamic lifestyle app serving Muslims globally. Built features including global prayer time lookup, a Hadith browser spanning major collections (Sahih al-Bukhari, Sahih Muslim, Abu Dawood, and more), and a halal restaurant and meat shop discovery tool. Used Next.js with Tailwind CSS to deliver a performant, ad-free experience.",
       techStack: ["Next.js", "Tailwind CSS"],
@@ -267,7 +267,7 @@ export const portfolioData: PortfolioData = {
       items: ["Jest", "Vitest", "Cypress"],
     },
     {
-      category: "Concepts",
+      category: "Architecture & Systems",
       items: [
         "Core Web Vitals",
         "SEO",

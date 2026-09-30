@@ -13,8 +13,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
 ---
 
 <Layout
-  title={`Guestbook | ${personal.name}`}
-  description="Sign the guestbook on Fiqri Syah Redha's portfolio. Leave a public message, feedback, or say hello using GitHub OAuth or anonymously."
+  title={`Public Ledger & Guestbook | ${personal.name}`}
+  description="Sign the public terminal guestbook on Fiqri Syah Redha's portfolio. Transmit a developer note, verify via GitHub, or drop feedback."
 >
   <RawModeToggle client:load />
   <SectionNav />
@@ -76,9 +76,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
         <p
           class="font-body text-fluid-body text-border-dark max-w-2xl leading-relaxed text-pretty"
         >
-          Leave a note, share a thought, give feedback, or just say hello.
-          Authenticate with your GitHub account to verify your developer profile
-          or post an anonymous note below.
+          A persistent public ledger for developers, peers, and collaborators.
+          Sign in with GitHub to verify your developer profile or transmit an anonymous note below.
         </p>
 
         {/* Industrial spec footer line */}

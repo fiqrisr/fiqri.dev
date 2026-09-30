@@ -109,7 +109,7 @@ export const GuestbookForm = ({
           <span className="font-mono text-xs font-bold px-2 py-0.5 bg-primary border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
             [ FORM: INPUT_CHANNEL ]
           </span>
-          <h3 className="font-heading font-bold text-lg">Leave a Sign</h3>
+          <h3 className="font-heading font-bold text-lg">Sign the Ledger</h3>
         </div>
 
         {user && (
@@ -183,7 +183,7 @@ export const GuestbookForm = ({
             placeholder={
               user && !forceAnonymous
                 ? `Write your note as @${user.username}...`
-                : "Leave a friendly greeting, tip, or thought..."
+                : "Share a greeting, note on architecture, or drop your project link..."
             }
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -245,7 +245,7 @@ export const GuestbookForm = ({
             className="w-full sm:w-auto font-mono text-xs tracking-wider flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
-            {isSubmitting ? "TRANSMITTING..." : "POST MESSAGE"}
+            {isSubmitting ? "TRANSMITTING..." : "TRANSMIT ENTRY"}
           </Button>
         </div>
       </form>

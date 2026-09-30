@@ -28,7 +28,7 @@ export const SpinningBadge = () => {
         />
         <text className="font-mono" fontSize="14" fontWeight="bold" fill="currentColor">
           <textPath href="#circlePath" startOffset="0%">
-            4+ YEARS EXPERIENCE • DEPLOYING SCALE • ZERO COMPROMISE •
+            4+ YEARS IN PRODUCTION • DEPLOYING SCALE • MEASURED IMPACT •
           </textPath>
         </text>
         <text
