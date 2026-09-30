@@ -77,6 +77,7 @@
 
   /* Blueprint registration frame — crosshairs at viewport corners */
   body::after {
+    display: none;
     content: "";
     position: fixed;
     inset: 10px;
@@ -91,6 +92,12 @@
       right top,
       left bottom,
       right bottom;
+  }
+
+  @media (min-width: 768px) {
+    body::after {
+      display: block;
+    }
   }
 
   h1,
