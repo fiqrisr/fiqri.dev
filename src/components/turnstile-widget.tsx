@@ -8,6 +8,7 @@ export type TurnstileWidgetProps = {
   onError?: (error?: unknown) => void;
   onExpire?: () => void;
   className?: string;
+  resetKey?: number;
 };
 
 declare global {
@@ -37,6 +38,7 @@ export const TurnstileWidget = ({
   onError,
   onExpire,
   className,
+  resetKey,
 }: TurnstileWidgetProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
@@ -157,6 +159,20 @@ export const TurnstileWidget = ({
     };
   }, [siteKey, renderWidget]);
 
+  useEffect(() => {
+    if (resetKey && resetKey > 0 && widgetIdRef.current && window.turnstile) {
+      try {
+        window.turnstile.reset(widgetIdRef.current);
+        setErrorMessage(null);
+      } catch {
+        try {
+          window.turnstile.remove(widgetIdRef.current);
+        } catch {}
+        widgetIdRef.current = null;
+        renderWidget();
+      }
+    }
+  }, [resetKey, renderWidget]);
   return (
     <div className={cn("flex flex-col items-center justify-center p-2 min-h-[65px]", className)}>
       <div ref={containerRef} className="flex items-center justify-center" />

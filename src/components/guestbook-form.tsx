@@ -22,6 +22,7 @@ export const GuestbookForm = ({
   const [anonymousName, setAnonymousName] = useState<string>("");
   const [forceAnonymous, setForceAnonymous] = useState<boolean>(false);
   const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -89,6 +90,7 @@ export const GuestbookForm = ({
       setMessage("");
       setAnonymousName("");
       setTurnstileToken("");
+      setTurnstileResetKey((prev) => prev + 1);
       setSuccess(true);
       onEntryCreated(newEntry);
 
@@ -200,6 +202,7 @@ export const GuestbookForm = ({
             {turnstileSiteKey ? (
               <TurnstileWidget
                 siteKey={turnstileSiteKey}
+                resetKey={turnstileResetKey}
                 onVerify={(token) => setTurnstileToken(token)}
                 onExpire={() => setTurnstileToken("")}
               />
