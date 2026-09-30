@@ -6,7 +6,7 @@ This file defines the conventions, architecture, and design rules for the **fiqr
 
 ## Project Overview
 
-**fiqri.dev** is the personal portfolio website of **Fiqri Syah Redha**, a Senior Frontend Engineer. The site showcases his professional experience, projects, skills, education, and certifications.
+**fiqri.dev** is the personal portfolio website of **Fiqri Syah Redha**, a Software Engineer. The site showcases his professional experience, projects, skills, education, and certifications.
 
 The site is built as a static/hybrid site using [Astro](https://astro.build/) with [React](https://react.dev/) islands for interactive components. The visual identity follows a **Neo-Brutalism** design aesthetic.
 
