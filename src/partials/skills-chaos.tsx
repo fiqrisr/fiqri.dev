@@ -3,7 +3,13 @@ import { portfolioData } from "../data/portfolio-data";
 
 const categoryColors = ["bg-primary", "bg-secondary", "bg-accent"];
 
-const getRandomRotation = () => Math.floor(Math.random() * 16 - 8);
+const getRotationForSkill = (skill: string) => {
+  let hash = 0;
+  for (let i = 0; i < skill.length; i++) {
+    hash = (hash * 31 + skill.charCodeAt(i)) | 0;
+  }
+  return (Math.abs(hash) % 16) - 8;
+};
 
 const containerVariants = {
   hidden: {},
@@ -51,7 +57,7 @@ const SkillTag = ({ skill, color }: SkillTagProps) => {
       style={{
         x,
         y,
-        rotate: getRandomRotation(),
+        rotate: getRotationForSkill(skill),
       }}
       variants={tagVariants}
       className={`${color} border-4 border-black px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-grab active:cursor-grabbing select-none touch-none`}
