@@ -1,0 +1,309 @@
+---
+import Layout from "../layouts/layout.astro";
+import SectionNav from "../partials/section-nav.astro";
+import FooterCta from "../partials/footer-cta.astro";
+import { RawModeToggle } from "../components/raw-mode-toggle";
+import { portfolioData } from "../data/portfolio-data";
+
+const { personal, experience, education, certifications } = portfolioData;
+---
+
+<Layout
+  title={`Work Experience & Timeline | ${personal.name}`}
+  description="Chronological engineering career history, platform architecture achievements, education, and credentials for Fiqri Syah Redha."
+>
+  <RawModeToggle client:load />
+  <SectionNav />
+
+  <main id="main-content" class="min-h-screen pt-36 pb-20 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative">
+      <!-- Section Tag Annotations -->
+      <span
+        class="absolute -top-6 left-4 font-mono text-xs text-border-dark/30 select-none pointer-events-none"
+      >
+        &lt;main class="career-ledger"&gt;
+      </span>
+      <span
+        class="absolute -bottom-6 right-4 font-mono text-xs text-border-dark/30 select-none pointer-events-none"
+      >
+        &lt;/main&gt;
+      </span>
+
+      <!-- Compact Header Header -->
+      <header
+        class="border-2 md:border-4 border-black bg-bg-base p-6 sm:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] mb-12 relative overflow-hidden"
+      >
+        <div
+          class="h-2 bg-hazard-stripes border-b-2 border-black -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 mb-5"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span
+              class="font-mono text-xs font-bold px-2 py-0.5 bg-bg-base border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            >
+              [ FILE_REF: 001 ]
+            </span>
+            <span
+              class="font-mono text-xs font-bold px-2 py-0.5 bg-primary text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            >
+              CAREER_LEDGER
+            </span>
+          </div>
+
+          <a
+            href="/"
+            class="font-mono text-xs font-bold border-2 border-black px-3 py-1 bg-bg-base shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary transition-colors inline-flex items-center gap-1.5"
+          >
+            ← BACK TO HOME
+          </a>
+        </div>
+
+        <h1
+          class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-border-dark uppercase leading-[0.95] mb-3"
+        >
+          Career Experience &amp; History
+        </h1>
+
+        <p class="font-body text-sm sm:text-base text-border-dark/85 max-w-2xl leading-relaxed mb-6">
+          A chronological ledger of 4+ years architecting web applications, modernizing high-traffic platforms, and leading frontend release cycles.
+        </p>
+
+        <!-- Concise Metrics Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t-2 border-border-dark/30 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-accent">07</span>
+            <span class="text-border-dark/70">Recorded Roles</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-hazard">04+</span>
+            <span class="text-border-dark/70">Years Production</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-primary">01</span>
+            <span class="text-border-dark/70">B.CS Degree</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-secondary">04</span>
+            <span class="text-border-dark/70">Verified Certs</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ── VERTICAL TIMELINE LEDGER ── -->
+      <section class="mb-16">
+        <div class="flex items-center justify-between mb-8 pb-3 border-b-2 border-border-dark">
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-xs font-bold uppercase bg-border-dark text-bg-base px-2 py-0.5">
+              TIMELINE
+            </span>
+            <h2 class="font-heading font-bold text-xl sm:text-2xl uppercase tracking-tight text-border-dark">
+              Employment Progression
+            </h2>
+          </div>
+          <span class="font-mono text-xs text-border-dark/50 hidden sm:inline">
+            2020 — PRESENT
+          </span>
+        </div>
+
+        <!-- The Spine Line Container -->
+        <div class="relative pl-6 sm:pl-8 md:pl-10 border-l-4 border-border-dark space-y-10 ml-2 sm:ml-4">
+          {
+            experience.map((exp, index) => {
+              const isCurrent = exp.status === "ACTIVE";
+              return (
+                <article id={exp.id} class="relative scroll-mt-28 md:scroll-mt-36">
+                  {/* Timeline Node Marker on the Spine */}
+                  <div
+                    class:list={[
+                      "absolute -left-[31px] sm:-left-[39px] md:-left-[47px] top-1.5",
+                      "w-6 h-6 border-2 border-black flex items-center justify-center font-mono text-[9px] font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]",
+                      isCurrent
+                        ? "bg-secondary text-black animate-pulse"
+                        : "bg-bg-base text-border-dark",
+                    ]}
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                  {/* Clean Role Card */}
+                  <div
+                    class:list={[
+                      "border-2 md:border-4 border-black bg-bg-base p-5 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative transition-all duration-150",
+                      isCurrent && "border-l-8 border-l-primary shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]",
+                    ]}
+                  >
+                    {/* Top Row: Period, Status Badge, ID */}
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-mono text-xs font-bold px-2 py-0.5 border border-black bg-bg-base shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                          {exp.period}
+                        </span>
+
+                        {isCurrent ? (
+                          <span class="font-mono text-[10px] font-black uppercase px-2 py-0.5 bg-secondary text-black border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] tracking-wider">
+                            ACTIVE ROLE
+                          </span>
+                        ) : (
+                          <span class="font-mono text-[10px] uppercase px-1.5 py-0.5 border border-black/30 text-border-dark/60 font-semibold">
+                            ARCHIVED
+                          </span>
+                        )}
+                      </div>
+
+                      <span class="font-mono text-[10px] text-border-dark/40 select-none">
+                        #{exp.id}
+                      </span>
+                    </div>
+
+                    <!-- Role & Company -->
+                    <div class="mb-3">
+                      <h3 class="font-heading font-bold text-xl sm:text-2xl text-border-dark leading-snug">
+                        {exp.role}
+                      </h3>
+                      <div class="flex flex-wrap items-center gap-2 font-mono text-xs sm:text-sm text-border-dark/80 mt-1">
+                        <span class="font-bold text-border-dark">@ {exp.company}</span>
+                        <span class="text-border-dark/40">/</span>
+                        <span class="text-border-dark/70">📍 {exp.location}</span>
+                      </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="pt-3 border-t border-border-dark/15">
+                      <p class="font-body text-xs sm:text-sm text-border-dark/90 leading-relaxed">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </section>
+
+      <!-- ── SECTION: EDUCATION & CERTIFICATIONS (2-COLUMN GRID) ── -->
+      <section class="mb-14">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <!-- Academic Background -->
+          <div>
+            <div class="flex items-center gap-2 mb-4 pb-2 border-b-2 border-border-dark">
+              <span class="font-mono text-xs font-bold uppercase bg-accent text-white px-2 py-0.5">
+                ACADEMICS
+              </span>
+              <h2 class="font-heading font-bold text-lg sm:text-xl uppercase tracking-tight text-border-dark">
+                Education
+              </h2>
+            </div>
+
+            <div
+              class="border-2 md:border-4 border-black bg-bg-base p-5 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative"
+            >
+              <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs">
+                <span class="font-bold border border-black bg-accent text-white px-2 py-0.5">
+                  {education.period}
+                </span>
+                <span class="text-border-dark/50">GRADUATED</span>
+              </div>
+
+              <h3 class="font-heading font-bold text-xl sm:text-2xl text-border-dark mb-1 leading-snug">
+                {education.degree}
+              </h3>
+              <p class="font-mono text-sm font-bold text-border-dark/80 mb-3">
+                {education.university} — {education.location}
+              </p>
+
+              <p class="font-body text-xs text-border-dark/80 leading-relaxed pt-3 border-t border-border-dark/15">
+                Comprehensive study in software engineering, algorithms, database systems, and distributed web architecture.
+              </p>
+            </div>
+          </div>
+
+          <!-- Professional Certifications -->
+          <div>
+            <div class="flex items-center gap-2 mb-4 pb-2 border-b-2 border-border-dark">
+              <span class="font-mono text-xs font-bold uppercase bg-secondary text-black px-2 py-0.5">
+                ACCREDITATIONS
+              </span>
+              <h2 class="font-heading font-bold text-lg sm:text-xl uppercase tracking-tight text-border-dark">
+                Certifications
+              </h2>
+            </div>
+
+            <div class="space-y-3">
+              {
+                certifications.map((cert) => (
+                  <div class="border-2 border-black bg-bg-base p-3.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-secondary/15 transition-colors">
+                    <div class="flex items-start justify-between gap-3">
+                      <div>
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="font-mono text-[9px] font-bold uppercase border border-black bg-primary px-1.5 py-0.2">
+                            {cert.issuer}
+                          </span>
+                          <span class="font-mono text-[10px] text-border-dark/60">
+                            {cert.date}
+                          </span>
+                        </div>
+                        <h4 class="font-heading font-bold text-xs sm:text-sm text-border-dark leading-snug">
+                          {cert.title}
+                        </h4>
+                      </div>
+
+                      <a
+                        href={cert.credentialLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="shrink-0 font-mono text-[10px] font-bold border border-black bg-bg-base px-2 py-1 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-primary transition-colors inline-flex items-center gap-1"
+                        aria-label={`Verify credential for ${cert.title}`}
+                      >
+                        <span>Verify</span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION: NEXT STEPS BANNER ── -->
+      <div
+        class="border-2 md:border-4 border-black bg-bg-base p-5 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase bg-primary text-black px-2 py-0.5 border border-black inline-block mb-1.5 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+            COLLABORATION
+          </span>
+          <h2 class="font-heading font-bold text-lg sm:text-xl text-border-dark mb-0.5">
+            Looking for engineering consultation or collaboration?
+          </h2>
+          <p class="font-body text-xs sm:text-sm text-border-dark/80">
+            Reach out via email or leave a message on the public guestbook.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2.5 shrink-0 w-full sm:w-auto">
+          <a
+            href={`mailto:${personal.email}`}
+            class="flex-1 sm:flex-initial text-center font-heading font-bold text-xs sm:text-sm border-2 border-black bg-secondary px-4 py-2.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+          >
+            Get In Touch →
+          </a>
+          <a
+            href="/guestbook"
+            class="flex-1 sm:flex-initial text-center font-heading font-bold text-xs sm:text-sm border-2 border-black bg-bg-base px-4 py-2.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+          >
+            Guestbook
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <FooterCta />
+</Layout>

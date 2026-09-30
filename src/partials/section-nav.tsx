@@ -11,7 +11,7 @@ export type NavLink = {
 
 export const navLinks: NavLink[] = [
   { href: "/", label: "Home", ref: "000" },
-  { href: "/#experience", label: "Experience", ref: "001" },
+  { href: "/experience", label: "Experience", ref: "001" },
   { href: "/#projects", label: "Projects", ref: "002" },
   { href: "/#skills", label: "Skills", ref: "003" },
   { href: "/#contact", label: "Contact", ref: "004" },
@@ -115,7 +115,7 @@ export const SectionNav = ({ currentPath = "/" }: SectionNavProps) => {
         const hash = href.slice(1);
         return activePathname === "/" && activeHash === hash;
       }
-      return activePathname === href;
+      return activePathname === href || activePathname === `${href}/`;
     },
     [activePathname, activeHash],
   );

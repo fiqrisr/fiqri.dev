@@ -2,7 +2,7 @@
 import Layout from "../layouts/layout.astro";
 import HeroSection from "../partials/hero-section.astro";
 import MarqueeBanner from "../partials/marquee-banner.astro";
-import ExperienceTimeline from "../partials/experience-timeline.astro";
+import ExperiencePreview from "../partials/experience-preview.astro";
 import SectionNav from "../partials/section-nav.astro";
 import FooterCta from "../partials/footer-cta.astro";
 import { ProjectGallery } from "../partials/project-gallery";
@@ -22,7 +22,7 @@ const { personal } = portfolioData;
   <main id="main-content">
     <HeroSection />
     <MarqueeBanner />
-    <ExperienceTimeline />
+    <ExperiencePreview />
     <ProjectGallery client:load />
     <SkillsChaos client:load />
   </main>
