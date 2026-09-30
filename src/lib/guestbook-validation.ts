@@ -2,6 +2,8 @@ export const MAX_MESSAGE_LENGTH = 300;
 export const MIN_MESSAGE_LENGTH = 2;
 export const MAX_NAME_LENGTH = 50;
 export const MAX_BODY_BYTES = 32 * 1024; // 32 KB
+export const DEFAULT_PAGE_SIZE = 10;
+export const MAX_PAGE_SIZE = 100;
 
 export const RESERVED_NAMES = Object.freeze([
   "admin",
@@ -158,11 +160,11 @@ export const parsePaginationParams = (
   limitParam: string | null,
   cursorParam: string | null,
 ): { limit: number; cursor: number | null } => {
-  let limit = 50;
+  let limit = DEFAULT_PAGE_SIZE;
   if (limitParam !== null) {
     const parsedLimit = Number.parseInt(limitParam, 10);
     if (Number.isFinite(parsedLimit)) {
-      limit = Math.min(Math.max(1, parsedLimit), 100);
+      limit = Math.min(Math.max(1, parsedLimit), MAX_PAGE_SIZE);
     }
   }
 

@@ -11,6 +11,13 @@ export type GuestbookListProps = {
   currentUser: AuthUser | null;
   onDeleteEntry: (id: string) => Promise<void>;
   isLoading?: boolean;
+  page?: number;
+  totalPages?: number;
+  totalCount?: number;
+  hasNextPage?: boolean;
+  hasPrevPage?: boolean;
+  onNextPage?: () => void;
+  onPrevPage?: () => void;
 };
 
 const formatRelativeTime = (timestamp: number): string => {
@@ -37,6 +44,13 @@ export const GuestbookList = ({
   currentUser,
   onDeleteEntry,
   isLoading,
+  page = 1,
+  totalPages,
+  totalCount,
+  hasNextPage = false,
+  hasPrevPage = false,
+  onNextPage,
+  onPrevPage,
 }: GuestbookListProps) => {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -100,14 +114,19 @@ export const GuestbookList = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between pb-2 border-b-2 border-black">
         <span className="font-mono text-xs font-bold uppercase tracking-wider text-border-dark/70">
-          LOGGED MESSAGES ({entries.length})
+          LOGGED MESSAGES ({totalCount !== undefined ? totalCount : entries.length})
         </span>
         <span className="font-mono text-[11px] text-border-dark/50">
           [ SYSTEM: D1_REPLICA_FEED ]
         </span>
       </div>
 
-      <div className="space-y-4">
+      <div
+        className={cn(
+          "space-y-4",
+          isLoading && "opacity-70 pointer-events-none transition-opacity",
+        )}
+      >
         {entries.map((entry) => {
           const isOwner = currentUser && entry.userId && currentUser.id === entry.userId;
           const canDelete = currentUser?.isAdmin || isOwner;
@@ -240,6 +259,46 @@ export const GuestbookList = ({
           );
         })}
       </div>
+
+      {(hasNextPage || hasPrevPage || page > 1 || (totalPages && totalPages > 1)) && (
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t-2 border-black">
+          <div className="font-mono text-xs font-bold text-border-dark flex items-center gap-2">
+            <span className="inline-block w-2.5 h-2.5 bg-primary border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]" />
+            <span>
+              PAGE {page}
+              {totalPages && totalPages > 1 ? ` OF ${totalPages}` : ""}
+            </span>
+            {totalCount !== undefined && totalCount > 0 && (
+              <span className="text-border-dark/60 font-normal">
+                ({totalCount} {totalCount === 1 ? "TRANSMISSION" : "TRANSMISSIONS"})
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              disabled={!hasPrevPage || isLoading}
+              onClick={onPrevPage}
+              className="text-xs font-mono h-8 px-3"
+            >
+              ← PREV
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              disabled={!hasNextPage || isLoading}
+              onClick={onNextPage}
+              className="text-xs font-mono h-8 px-3"
+            >
+              NEXT →
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

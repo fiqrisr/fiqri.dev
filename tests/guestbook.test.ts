@@ -8,6 +8,7 @@ import {
   parseCookie,
 } from "../src/lib/auth";
 import {
+  DEFAULT_PAGE_SIZE,
   MAX_MESSAGE_LENGTH,
   MAX_NAME_LENGTH,
   MIN_MESSAGE_LENGTH,
@@ -227,19 +228,23 @@ describe("Format & Type Validators", () => {
 
 describe("Pagination Parameter Parsing", () => {
   it("defaults and clamps pagination parameters safely", () => {
-    expect(parsePaginationParams(null, null)).toEqual({ limit: 50, cursor: null });
+    expect(DEFAULT_PAGE_SIZE).toBe(10);
+    expect(parsePaginationParams(null, null)).toEqual({ limit: 10, cursor: null });
     expect(parsePaginationParams("25", "1700000000000")).toEqual({
       limit: 25,
       cursor: 1700000000000,
     });
-    // Negative or NaN limit
+    // Negative or NaN limit defaults to 1 or default page size (10)
     expect(parsePaginationParams("-5", null)).toEqual({ limit: 1, cursor: null });
-    expect(parsePaginationParams("invalid", null)).toEqual({ limit: 50, cursor: null });
+    expect(parsePaginationParams("invalid", null)).toEqual({ limit: 10, cursor: null });
+    // Explicit valid limits
+    expect(parsePaginationParams("10", null)).toEqual({ limit: 10, cursor: null });
+    expect(parsePaginationParams("50", null)).toEqual({ limit: 50, cursor: null });
     // Over max limit clamped to 100
     expect(parsePaginationParams("500", null)).toEqual({ limit: 100, cursor: null });
     // Invalid cursor
-    expect(parsePaginationParams("50", "-1")).toEqual({ limit: 50, cursor: null });
-    expect(parsePaginationParams("50", "abc")).toEqual({ limit: 50, cursor: null });
+    expect(parsePaginationParams("10", "-1")).toEqual({ limit: 10, cursor: null });
+    expect(parsePaginationParams("10", "abc")).toEqual({ limit: 10, cursor: null });
   });
 });
 

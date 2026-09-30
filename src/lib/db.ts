@@ -1,6 +1,7 @@
 import type { D1Database } from "@cloudflare/workers-types";
 import type { APIContext } from "astro";
 import { getAppEnv } from "./env";
+import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from "./guestbook-validation";
 import type {
   AuthSession,
   GuestbookEntry,
@@ -36,10 +37,10 @@ const mapRowToSession = (row: RawSessionRow): AuthSession => ({
 
 export const fetchGuestbookEntries = async (
   db: D1Database,
-  limit = 50,
+  limit = DEFAULT_PAGE_SIZE,
   cursor?: number | null,
-): Promise<{ entries: GuestbookEntry[]; nextCursor: number | null }> => {
-  const safeLimit = Math.min(Math.max(1, limit), 100);
+): Promise<{ entries: GuestbookEntry[]; nextCursor: number | null; totalCount?: number }> => {
+  const safeLimit = Math.min(Math.max(1, limit), MAX_PAGE_SIZE);
 
   let query: string;
   let params: (string | number)[];
@@ -63,10 +64,19 @@ export const fetchGuestbookEntries = async (
     params = [safeLimit + 1];
   }
 
-  const result = await db
-    .prepare(query)
-    .bind(...params)
-    .all<RawGuestbookRow>();
+  const [result, countResult] = await Promise.all([
+    db
+      .prepare(query)
+      .bind(...params)
+      .all<RawGuestbookRow>(),
+    db
+      .prepare("SELECT COUNT(*) as count FROM guestbook_entries")
+      .first<{ count: number }>()
+      .catch((err) => {
+        console.error("Failed to count guestbook entries:", err);
+        return null;
+      }),
+  ]);
   const rows = result.results || [];
   const hasMore = rows.length > safeLimit;
   const items = hasMore ? rows.slice(0, safeLimit) : rows;
@@ -75,6 +85,8 @@ export const fetchGuestbookEntries = async (
   return {
     entries: items.map(mapRowToEntry),
     nextCursor,
+    totalCount:
+      countResult && typeof countResult.count === "number" ? countResult.count : undefined,
   };
 };
 

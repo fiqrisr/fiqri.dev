@@ -51,6 +51,7 @@ export type AuthSession = {
 export type GuestbookResponse = {
   entries: GuestbookEntry[];
   nextCursor: number | null;
+  totalCount?: number;
 };
 
 export type CreateGuestbookInput = {
