@@ -103,30 +103,30 @@ export const GuestbookForm = ({
   };
 
   return (
-    <div className="border-4 border-black bg-bg-base p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
-      <div className="flex items-center justify-between border-b-2 border-black pb-3 mb-5">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-xs font-bold px-2 py-0.5 bg-primary border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+    <div className="border-4 border-black bg-bg-base p-4 sm:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-2 border-black pb-3 mb-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono text-xs font-bold px-2 py-0.5 bg-primary border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap shrink-0">
             [ FORM: INPUT_CHANNEL ]
           </span>
-          <h3 className="font-heading font-bold text-lg">Sign the Ledger</h3>
+          <h3 className="font-heading font-bold text-lg leading-tight">Sign the Ledger</h3>
         </div>
 
         {user && (
           <button
             type="button"
             onClick={() => setForceAnonymous(!forceAnonymous)}
-            className="font-mono text-xs font-semibold underline hover:text-hazard transition-colors flex items-center gap-1"
+            className="font-mono text-xs font-semibold underline hover:text-hazard transition-colors flex items-center gap-1.5 self-start md:self-auto shrink-0"
           >
             {forceAnonymous ? (
               <>
-                <Sparkles className="w-3.5 h-3.5" />
-                Post as @{user.username}
+                <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                <span>Post as @{user.username}</span>
               </>
             ) : (
               <>
-                <UserX className="w-3.5 h-3.5" />
-                Post anonymously instead
+                <UserX className="w-3.5 h-3.5 shrink-0" />
+                <span>Post anonymously instead</span>
               </>
             )}
           </button>
