@@ -9,10 +9,10 @@ const { personal } = portfolioData;
 ---
 
 <section
-  class="relative min-h-dvh py-32 border-b-4 border-black overflow-hidden"
+  class="relative min-h-dvh pt-40 md:pt-44 md:pb-32 border-b-4 border-black overflow-hidden"
 >
   {/* Top specification strip — compartmentalized telemetry */}
-  <div class="absolute top-0 inset-x-0 z-20 border-b-2 border-black bg-bg-base">
+  <div class="hidden md:block absolute top-0 inset-x-0 z-20 border-b-2 border-black bg-bg-base">
     <div class="grid grid-cols-2 md:grid-cols-4 font-mono text-[10px] font-bold uppercase tracking-[0.08em] divide-x-2 divide-black">
       <div class="px-3 py-2 flex items-center gap-2">
         <span class="inline-block h-2 w-2 bg-hazard" aria-hidden="true" />
@@ -43,7 +43,7 @@ const { personal } = portfolioData;
 
   <!-- Exposed HTML tags -->
   <span
-    class="absolute top-20 md:top-12 left-4 font-mono text-xs text-black/20 select-none pointer-events-none z-0"
+    class="absolute top-28 md:top-12 left-4 font-mono text-xs text-black/20 select-none pointer-events-none z-0"
     >&lt;section class="hero"&gt;</span
   >
   <span
