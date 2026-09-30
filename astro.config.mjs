@@ -1,5 +1,6 @@
 // @ts-check
 
+import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -9,6 +10,11 @@ import favicons from "astro-favicons";
 // https://astro.build/config
 export default defineConfig({
   site: "https://fiqri.dev",
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
   integrations: [
     react(),
     sitemap(),
@@ -22,5 +28,9 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ["picomatch", "@astrojs/react > @astrojs/internal-helpers > picomatch"],
+      exclude: ["astro-favicons"],
+    },
   },
 });
