@@ -24,8 +24,23 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      dedupe: ["react", "react-dom"],
+    },
     optimizeDeps: {
-      include: ["picomatch", "@astrojs/react > @astrojs/internal-helpers > picomatch"],
+      include: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react-dom/client",
+        "framer-motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge",
+        "picomatch",
+        "@astrojs/react > @astrojs/internal-helpers > picomatch",
+      ],
       exclude: ["astro-favicons"],
     },
   },
