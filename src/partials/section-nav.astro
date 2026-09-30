@@ -1,10 +1,13 @@
 ---
 const links = [
-  { href: "#experience", label: "Experience", ref: "001" },
-  { href: "#projects", label: "Projects", ref: "002" },
-  { href: "#skills", label: "Skills", ref: "003" },
-  { href: "#contact", label: "Contact", ref: "004" },
+  { href: "/#experience", label: "Experience", ref: "001" },
+  { href: "/#projects", label: "Projects", ref: "002" },
+  { href: "/#skills", label: "Skills", ref: "003" },
+  { href: "/#contact", label: "Contact", ref: "004" },
+  { href: "/guestbook", label: "Guestbook", ref: "005" },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav
@@ -21,6 +24,7 @@ const links = [
           "hover:bg-secondary active:bg-primary",
           "transition-colors duration-150",
           i > 0 && "border-l-2 border-black",
+          link.href === currentPath && "bg-secondary",
         ]}
       >
         <span class="text-hazard mr-1">{link.ref}</span>
