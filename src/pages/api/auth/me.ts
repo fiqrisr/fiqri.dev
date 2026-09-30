@@ -20,6 +20,8 @@ export const GET: APIRoute = async (context) => {
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY",
         },
       },
     );
@@ -35,6 +37,8 @@ export const GET: APIRoute = async (context) => {
         headers: {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY",
         },
       },
     );

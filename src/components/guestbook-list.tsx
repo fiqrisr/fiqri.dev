@@ -1,5 +1,6 @@
 import { ExternalLink, Trash2, User, UserCheck } from "lucide-react";
 import { useState } from "react";
+import { isSafeHttpsUrl, isValidGitHubUsername } from "../lib/guestbook-validation";
 import type { AuthUser, GuestbookEntry } from "../lib/types/guestbook";
 import { cn } from "../lib/utils";
 import { Badge } from "./badge";
@@ -13,10 +14,11 @@ export type GuestbookListProps = {
 };
 
 const formatRelativeTime = (timestamp: number): string => {
+  if (!Number.isFinite(timestamp) || timestamp <= 0) return "Recently";
   const diff = Date.now() - timestamp;
-  const seconds = Math.floor(diff / 1000);
-  if (seconds < 60) return "Just now";
-  const minutes = Math.floor(seconds / 60);
+  // Handle clock skew or immediately created entries
+  if (diff < 60000) return "Just now";
+  const minutes = Math.floor(diff / 60000);
   if (minutes < 60) return `${minutes}m ago`;
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours}h ago`;
@@ -38,14 +40,22 @@ export const GuestbookList = ({
 }: GuestbookListProps) => {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [failedAvatars, setFailedAvatars] = useState<Record<string, boolean>>({});
+  const [deleteError, setDeleteError] = useState<{ id: string; message: string } | null>(null);
 
   const handleDelete = async (id: string) => {
     setDeletingId(id);
+    setDeleteError(null);
     try {
       await onDeleteEntry(id);
+      setConfirmDeleteId(null);
+    } catch (err) {
+      setDeleteError({
+        id,
+        message: err instanceof Error ? err.message : "Failed to delete message",
+      });
     } finally {
       setDeletingId(null);
-      setConfirmDeleteId(null);
     }
   };
 
@@ -103,6 +113,14 @@ export const GuestbookList = ({
           const canDelete = currentUser?.isAdmin || isOwner;
           const isConfirming = confirmDeleteId === entry.id;
           const isDeleting = deletingId === entry.id;
+          const hasAvatarFailed = failedAvatars[entry.id];
+          const hasSafeAvatar =
+            !hasAvatarFailed &&
+            Boolean(entry.githubAvatarUrl && isSafeHttpsUrl(entry.githubAvatarUrl));
+          const hasSafeUsername =
+            !entry.isAnonymous &&
+            Boolean(entry.githubUsername && isValidGitHubUsername(entry.githubUsername));
+          const hasDeleteError = deleteError?.id === entry.id;
 
           return (
             <div
@@ -115,10 +133,11 @@ export const GuestbookList = ({
             >
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
-                  {entry.githubAvatarUrl ? (
+                  {hasSafeAvatar && entry.githubAvatarUrl ? (
                     <img
                       src={entry.githubAvatarUrl}
                       alt={entry.name}
+                      onError={() => setFailedAvatars((prev) => ({ ...prev, [entry.id]: true }))}
                       className="w-10 h-10 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] object-cover rounded-none shrink-0"
                     />
                   ) : (
@@ -133,7 +152,7 @@ export const GuestbookList = ({
                         {entry.name}
                       </span>
 
-                      {!entry.isAnonymous && entry.githubUsername && (
+                      {hasSafeUsername && entry.githubUsername && (
                         <a
                           href={`https://github.com/${entry.githubUsername}`}
                           target="_blank"
@@ -204,6 +223,15 @@ export const GuestbookList = ({
                   </div>
                 )}
               </div>
+
+              {hasDeleteError && (
+                <div
+                  role="alert"
+                  className="mt-2 mb-2 p-2 bg-hazard/20 border-2 border-hazard font-mono text-xs text-hazard font-bold"
+                >
+                  [ DELETE_FAILED: {deleteError.message} ]
+                </div>
+              )}
 
               <p className="font-body text-sm text-border-dark leading-relaxed whitespace-pre-wrap break-words pl-0 sm:pl-[52px]">
                 {entry.message}

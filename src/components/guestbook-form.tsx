@@ -1,5 +1,10 @@
 import { AlertCircle, CheckCircle2, Send, Sparkles, UserX } from "lucide-react";
 import { useState } from "react";
+import {
+  MAX_MESSAGE_LENGTH,
+  MAX_NAME_LENGTH,
+  MIN_MESSAGE_LENGTH,
+} from "../lib/guestbook-validation";
 import type { AuthUser, GuestbookEntry } from "../lib/types/guestbook";
 import { cn } from "../lib/utils";
 import { Button } from "./button";
@@ -10,8 +15,6 @@ export type GuestbookFormProps = {
   turnstileSiteKey?: string;
   onEntryCreated: (entry: GuestbookEntry) => void;
 };
-
-const MAX_MESSAGE_CHARS = 300;
 
 export const GuestbookForm = ({
   user,
@@ -28,7 +31,8 @@ export const GuestbookForm = ({
   const [success, setSuccess] = useState<boolean>(false);
 
   const isPostingAnonymously = !user || forceAnonymous;
-  const remainingChars = MAX_MESSAGE_CHARS - message.length;
+  const charCount = Array.from(message).length;
+  const remainingChars = MAX_MESSAGE_LENGTH - charCount;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,13 +40,19 @@ export const GuestbookForm = ({
     setSuccess(false);
 
     const trimmed = message.trim();
-    if (!trimmed) {
+    if (trimmed.length === 0) {
       setError("Please write a message before submitting.");
       return;
     }
 
-    if (trimmed.length > MAX_MESSAGE_CHARS) {
-      setError(`Message exceeds ${MAX_MESSAGE_CHARS} characters.`);
+    const codePoints = Array.from(trimmed);
+    if (codePoints.length < MIN_MESSAGE_LENGTH) {
+      setError(`Message must be at least ${MIN_MESSAGE_LENGTH} characters long.`);
+      return;
+    }
+
+    if (codePoints.length > MAX_MESSAGE_LENGTH) {
+      setError(`Message exceeds ${MAX_MESSAGE_LENGTH} characters.`);
       return;
     }
 
@@ -145,7 +155,7 @@ export const GuestbookForm = ({
             <input
               id="guestbook-name"
               type="text"
-              maxLength={50}
+              maxLength={MAX_NAME_LENGTH}
               placeholder="e.g. Fellow Dev, Alex, Neo"
               value={anonymousName}
               onChange={(e) => setAnonymousName(e.target.value)}
@@ -173,13 +183,13 @@ export const GuestbookForm = ({
                 remainingChars < 20 ? "text-hazard" : "text-border-dark/60",
               )}
             >
-              {remainingChars} / {MAX_MESSAGE_CHARS}
+              {remainingChars} / {MAX_MESSAGE_LENGTH}
             </span>
           </div>
           <textarea
             id="guestbook-message"
             rows={3}
-            maxLength={MAX_MESSAGE_CHARS}
+            maxLength={MAX_MESSAGE_LENGTH}
             placeholder={
               user && !forceAnonymous
                 ? `Write your note as @${user.username}...`
@@ -215,14 +225,22 @@ export const GuestbookForm = ({
         )}
 
         {error && (
-          <div className="p-3 bg-hazard text-white border-2 border-black font-mono text-xs font-bold flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          <div
+            role="alert"
+            aria-live="polite"
+            className="p-3 bg-hazard text-white border-2 border-black font-mono text-xs font-bold flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+          >
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>[ ERROR: {error} ]</span>
           </div>
         )}
 
         {success && (
-          <div className="p-3 bg-accent text-black border-2 border-black font-mono text-xs font-bold flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          <div
+            role="status"
+            aria-live="polite"
+            className="p-3 bg-accent text-black border-2 border-black font-mono text-xs font-bold flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+          >
             <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>[ TRANSMISSION LOGGED: Message added to guestbook! ]</span>
           </div>
@@ -241,7 +259,7 @@ export const GuestbookForm = ({
             type="submit"
             variant="default"
             size="default"
-            disabled={isSubmitting || message.trim().length === 0}
+            disabled={isSubmitting || message.trim().length < MIN_MESSAGE_LENGTH}
             className="w-full sm:w-auto font-mono text-xs tracking-wider flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />

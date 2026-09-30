@@ -95,6 +95,26 @@ export const findGuestbookEntryById = async (
   return row ? mapRowToEntry(row) : null;
 };
 
+export const findRecentDuplicateEntry = async (
+  db: D1Database,
+  message: string,
+  windowMs = 60000,
+): Promise<GuestbookEntry | null> => {
+  const since = Date.now() - windowMs;
+  const row = await db
+    .prepare(
+      `SELECT id, user_id, name, github_username, github_avatar_url, is_anonymous, message, created_at
+       FROM guestbook_entries
+       WHERE message = ? AND created_at >= ?
+       ORDER BY created_at DESC
+       LIMIT 1`,
+    )
+    .bind(message, since)
+    .first<RawGuestbookRow>();
+
+  return row ? mapRowToEntry(row) : null;
+};
+
 export const insertGuestbookEntry = async (
   db: D1Database,
   entry: GuestbookEntry,
