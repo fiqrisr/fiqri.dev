@@ -10,11 +10,7 @@ import favicons from "astro-favicons";
 // https://astro.build/config
 export default defineConfig({
   site: "https://fiqri.dev",
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-  }),
+  adapter: cloudflare(),
   integrations: [
     react(),
     sitemap(),

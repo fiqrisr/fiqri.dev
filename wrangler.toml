@@ -2,8 +2,11 @@ name = "fiqri-dev"
 compatibility_date = "2026-09-24"
 compatibility_flags = ["nodejs_compat"]
 
+workers_dev = false
+preview_urls = false
+
 [[d1_databases]]
 binding = "DB"
 database_name = "fiqri-dev"
 database_id = "d4f30441-314d-4b42-b940-54fb45e25b92"
-migrations_dir = "../../migrations"
+migrations_dir = "migrations"
