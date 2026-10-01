@@ -52,10 +52,12 @@ export type GuestbookResponse = {
   entries: GuestbookEntry[];
   nextCursor: number | null;
   totalCount?: number;
+  allowAnonymous?: boolean;
 };
 
 export type CreateGuestbookInput = {
   message: string;
   name?: string;
   turnstileToken?: string;
+  isAnonymous?: boolean;
 };

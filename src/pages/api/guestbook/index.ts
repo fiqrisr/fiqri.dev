@@ -6,7 +6,7 @@ import {
   getD1,
   insertGuestbookEntry,
 } from "../../../lib/db";
-import { getAppEnv } from "../../../lib/env";
+import { getAppEnv, isAnonymousGuestbookAllowed } from "../../../lib/env";
 import {
   getSecurityHeaders,
   isSafeHttpsUrl,
@@ -38,8 +38,10 @@ export const GET: APIRoute = async (context) => {
   );
 
   try {
+    const env = getAppEnv();
+    const allowAnonymous = isAnonymousGuestbookAllowed(env);
     const result = await fetchGuestbookEntries(db, limit, cursor);
-    return new Response(JSON.stringify(result), {
+    return new Response(JSON.stringify({ ...result, allowAnonymous }), {
       status: 200,
       headers: getSecurityHeaders({
         "Cache-Control": "public, s-maxage=5, stale-while-revalidate=15",
@@ -126,10 +128,37 @@ export const POST: APIRoute = async (context) => {
     );
   }
 
+  const env = getAppEnv();
+  const allowAnonymous = isAnonymousGuestbookAllowed(env);
   const user = await getAuthenticatedUser(context);
+
+  if (!user && !allowAnonymous) {
+    return new Response(
+      JSON.stringify({
+        error: "Anonymous comments are disabled. Please sign in with GitHub to sign the guestbook.",
+      }),
+      {
+        status: 403,
+        headers: getSecurityHeaders({ "Cache-Control": "no-store" }),
+      },
+    );
+  }
+
+  if (user && !allowAnonymous && input.isAnonymous === true) {
+    return new Response(
+      JSON.stringify({
+        error: "Anonymous comments are disabled. Please post using your verified GitHub account.",
+      }),
+      {
+        status: 403,
+        headers: getSecurityHeaders({ "Cache-Control": "no-store" }),
+      },
+    );
+  }
+
   let entry: GuestbookEntry;
 
-  if (user) {
+  if (user && (!input.isAnonymous || !allowAnonymous)) {
     const nameResult = sanitizeName(user.name || user.username);
     const safeUsername = isValidGitHubUsername(user.username) ? user.username : null;
     const safeAvatar = isSafeHttpsUrl(user.avatarUrl) ? user.avatarUrl : null;
@@ -145,7 +174,6 @@ export const POST: APIRoute = async (context) => {
       createdAt: Date.now(),
     };
   } else {
-    const env = getAppEnv();
     const secretKey = env.TURNSTILE_SECRET_KEY;
     const clientIp =
       context.request.headers.get("cf-connecting-ip") ||

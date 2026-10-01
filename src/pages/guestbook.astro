@@ -10,6 +10,15 @@ import { portfolioData } from "../data/portfolio-data";
 const { personal } = portfolioData;
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
+const allowAnonymousRaw =
+  import.meta.env.PUBLIC_GUESTBOOK_ALLOW_ANONYMOUS ??
+  import.meta.env.GUESTBOOK_ALLOW_ANONYMOUS;
+const allowAnonymous =
+  allowAnonymousRaw !== undefined
+    ? !["false", "0", "no", "off", "disabled"].includes(
+        String(allowAnonymousRaw).toLowerCase().trim(),
+      )
+    : true;
 ---
 
 <Layout
@@ -94,6 +103,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
       <GuestbookContainer
         client:load
         turnstileSiteKey={turnstileSiteKey}
+        allowAnonymous={allowAnonymous}
       />
     </section>
   </main>

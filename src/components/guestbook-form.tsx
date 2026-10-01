@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, Send, Sparkles, UserX } from "lucide-react";
+import { AlertCircle, CheckCircle2, Lock, LogIn, Send, Sparkles, UserX } from "lucide-react";
 import { useState } from "react";
 import {
   MAX_MESSAGE_LENGTH,
@@ -13,12 +13,14 @@ import { TurnstileWidget } from "./turnstile-widget";
 export type GuestbookFormProps = {
   user: AuthUser | null;
   turnstileSiteKey?: string;
+  allowAnonymous?: boolean;
   onEntryCreated: (entry: GuestbookEntry) => void;
 };
 
 export const GuestbookForm = ({
   user,
   turnstileSiteKey = "0x4AAAAAAAx_test_key_xxxx",
+  allowAnonymous = true,
   onEntryCreated,
 }: GuestbookFormProps) => {
   const [message, setMessage] = useState<string>("");
@@ -30,7 +32,7 @@ export const GuestbookForm = ({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const isPostingAnonymously = !user || forceAnonymous;
+  const isPostingAnonymously = !user || (forceAnonymous && allowAnonymous);
   const charCount = Array.from(message).length;
   const remainingChars = MAX_MESSAGE_LENGTH - charCount;
 
@@ -72,11 +74,13 @@ export const GuestbookForm = ({
         message: string;
         name?: string;
         turnstileToken?: string;
+        isAnonymous?: boolean;
       } = {
         message: trimmed,
       };
 
       if (isPostingAnonymously) {
+        payload.isAnonymous = true;
         if (anonymousName.trim()) {
           payload.name = anonymousName.trim();
         }
@@ -111,6 +115,49 @@ export const GuestbookForm = ({
       setIsSubmitting(false);
     }
   };
+  if (!allowAnonymous && !user) {
+    return (
+      <div className="border-4 border-black bg-bg-base p-4 sm:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-2 border-black pb-3 mb-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-xs font-bold px-2 py-0.5 bg-hazard text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap shrink-0">
+              [ ACCESS_RESTRICTED: AUTH_REQUIRED ]
+            </span>
+            <h3 className="font-heading font-bold text-lg leading-tight">Sign the Ledger</h3>
+          </div>
+        </div>
+
+        <div className="border-2 border-black bg-secondary/15 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
+          <div className="flex items-start gap-3">
+            <Lock className="w-5 h-5 text-hazard shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <h4 className="font-mono text-sm font-bold text-border-dark uppercase tracking-wider">
+                ANONYMOUS COMMENTS ARE DISABLED
+              </h4>
+              <p className="font-body text-xs text-border-dark/80 max-w-xl leading-relaxed">
+                To prevent spam and unverified entries, this guestbook currently requires
+                authentication. Please sign in with your GitHub account to transmit a message to the
+                public ledger.
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-1">
+            <a href="/api/auth/github">
+              <Button
+                variant="default"
+                size="default"
+                className="font-mono text-xs tracking-wider flex items-center justify-center gap-2"
+              >
+                <LogIn className="w-4 h-4" />
+                SIGN IN WITH GITHUB TO TRANSMIT
+              </Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="border-4 border-black bg-bg-base p-4 sm:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative">
@@ -122,7 +169,7 @@ export const GuestbookForm = ({
           <h3 className="font-heading font-bold text-lg leading-tight">Sign the Ledger</h3>
         </div>
 
-        {user && (
+        {user && allowAnonymous && (
           <button
             type="button"
             onClick={() => setForceAnonymous(!forceAnonymous)}
@@ -248,8 +295,10 @@ export const GuestbookForm = ({
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
           <div className="font-mono text-[11px] text-border-dark/60">
-            {user && !forceAnonymous ? (
-              <span className="text-accent font-bold">✓ Verified via GitHub identity</span>
+            {user && !isPostingAnonymously ? (
+              <span className="text-accent font-bold">
+                ✓ Verified via GitHub identity (@{user.username})
+              </span>
             ) : (
               <span>Posting in anonymous mode</span>
             )}

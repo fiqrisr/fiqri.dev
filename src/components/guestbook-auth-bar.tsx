@@ -6,10 +6,16 @@ import { Button } from "./button";
 export type GuestbookAuthBarProps = {
   user: AuthUser | null;
   isLoading: boolean;
+  allowAnonymous?: boolean;
   onLogout: () => Promise<void>;
 };
 
-export const GuestbookAuthBar = ({ user, isLoading, onLogout }: GuestbookAuthBarProps) => {
+export const GuestbookAuthBar = ({
+  user,
+  isLoading,
+  allowAnonymous = true,
+  onLogout,
+}: GuestbookAuthBarProps) => {
   if (isLoading) {
     return (
       <div className="border-4 border-black bg-bg-base p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-between">
@@ -69,6 +75,34 @@ export const GuestbookAuthBar = ({ user, isLoading, onLogout }: GuestbookAuthBar
           <LogOut className="w-3.5 h-3.5" />
           SIGN OUT
         </Button>
+      </div>
+    );
+  }
+
+  if (!allowAnonymous) {
+    return (
+      <div className="border-4 border-black bg-hazard/10 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-dashed">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs font-bold text-hazard uppercase tracking-wider">
+              [ AUTH REQUIRED: GITHUB LOGIN ONLY ]
+            </span>
+            <span className="font-mono text-[10px] font-bold uppercase px-1.5 py-0.2 bg-secondary border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+              STRICT MODE
+            </span>
+          </div>
+          <p className="font-body text-xs text-border-dark/80 max-w-md">
+            Anonymous comments are disabled on this guestbook to prevent spam. You must sign in with
+            your GitHub account to drop a comment.
+          </p>
+        </div>
+
+        <a href="/api/auth/github">
+          <Button variant="default" size="sm" className="font-mono text-xs flex items-center gap-2">
+            <LogIn className="w-4 h-4" />
+            SIGN IN WITH GITHUB
+          </Button>
+        </a>
       </div>
     );
   }

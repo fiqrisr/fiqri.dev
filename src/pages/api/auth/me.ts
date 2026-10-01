@@ -1,12 +1,12 @@
 import type { APIRoute } from "astro";
 import { getAuthenticatedUser } from "../../../lib/auth";
-import { getAppEnv } from "../../../lib/env";
+import { getAppEnv, isAnonymousGuestbookAllowed } from "../../../lib/env";
 export const prerender = false;
 
 export const GET: APIRoute = async (context) => {
   const env = getAppEnv();
   const turnstileSiteKey = env.TURNSTILE_SITE_KEY || "";
-
+  const allowAnonymous = isAnonymousGuestbookAllowed(env);
   try {
     const user = await getAuthenticatedUser(context);
     return new Response(
@@ -14,6 +14,7 @@ export const GET: APIRoute = async (context) => {
         authenticated: Boolean(user),
         user,
         turnstileSiteKey,
+        allowAnonymous,
       }),
       {
         status: 200,
@@ -31,6 +32,7 @@ export const GET: APIRoute = async (context) => {
         authenticated: false,
         user: null,
         turnstileSiteKey,
+        allowAnonymous,
       }),
       {
         status: 200,

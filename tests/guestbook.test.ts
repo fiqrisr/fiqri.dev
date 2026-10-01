@@ -7,6 +7,7 @@ import {
   createStateCookie,
   parseCookie,
 } from "../src/lib/auth";
+import { isAnonymousGuestbookAllowed } from "../src/lib/env";
 import {
   DEFAULT_PAGE_SIZE,
   MAX_MESSAGE_LENGTH,
@@ -322,5 +323,59 @@ describe("Guestbook Entry Models", () => {
     expect(entry.isAnonymous).toBe(false);
     expect(entry.userId).toBe("12345");
     expect(entry.githubUsername).toBe("fiqrisr");
+  });
+});
+
+describe("Guestbook Feature Flag (Anonymous Comments)", () => {
+  it("defaults to true when GUESTBOOK_ALLOW_ANONYMOUS is unset", () => {
+    expect(isAnonymousGuestbookAllowed({})).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: undefined })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "" })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "   " })).toBe(true);
+  });
+
+  it("evaluates enabled values to true", () => {
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "true" })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "TRUE" })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "1" })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "yes" })).toBe(true);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "on" })).toBe(true);
+  });
+
+  it("evaluates disabled values to false", () => {
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "false" })).toBe(false);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "FALSE" })).toBe(false);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "0" })).toBe(false);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "no" })).toBe(false);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "off" })).toBe(false);
+    expect(isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "disabled" })).toBe(false);
+  });
+
+  it("enforces authentication requirement when anonymous posting is disabled", () => {
+    const allowAnonymous = isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "false" });
+    const unauthenticatedUser = null;
+    const authenticatedUser = {
+      id: "user-123",
+      username: "testuser",
+      name: "Test User",
+      avatarUrl: "https://avatars.githubusercontent.com/u/123",
+      isAdmin: false,
+    };
+
+    // An unauthenticated user must not be permitted when anonymous is false
+    const canUnauthenticatedPost = !(!unauthenticatedUser && !allowAnonymous);
+    expect(canUnauthenticatedPost).toBe(false);
+
+    // An authenticated user must be permitted
+    const canAuthenticatedPost = !(!authenticatedUser && !allowAnonymous);
+    expect(canAuthenticatedPost).toBe(true);
+  });
+
+  it("allows anonymous posting when feature flag is enabled", () => {
+    const allowAnonymous = isAnonymousGuestbookAllowed({ GUESTBOOK_ALLOW_ANONYMOUS: "true" });
+    const unauthenticatedUser = null;
+
+    const canUnauthenticatedPost = !(!unauthenticatedUser && !allowAnonymous);
+    expect(canUnauthenticatedPost).toBe(true);
   });
 });

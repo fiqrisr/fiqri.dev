@@ -8,16 +8,19 @@ import { GuestbookList } from "./guestbook-list";
 export type GuestbookContainerProps = {
   initialEntries?: GuestbookEntry[];
   turnstileSiteKey?: string;
+  allowAnonymous?: boolean;
 };
 const PAGE_SIZE = 10;
 
 export const GuestbookContainer = ({
   initialEntries = [],
   turnstileSiteKey,
+  allowAnonymous: initialAllowAnonymous = true,
 }: GuestbookContainerProps) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [entries, setEntries] = useState<GuestbookEntry[]>(initialEntries);
   const [activeSiteKey, setActiveSiteKey] = useState<string>(turnstileSiteKey || "");
+  const [allowAnonymous, setAllowAnonymous] = useState<boolean>(initialAllowAnonymous);
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(true);
   const [isEntriesLoading, setIsEntriesLoading] = useState<boolean>(initialEntries.length === 0);
   const [oauthError, setOauthError] = useState<string | null>(null);
@@ -54,6 +57,9 @@ export const GuestbookContainer = ({
         if (typeof data.totalCount === "number") {
           setTotalCount(data.totalCount);
         }
+        if (typeof data.allowAnonymous === "boolean") {
+          setAllowAnonymous(data.allowAnonymous);
+        }
         setPage(targetPage);
         setCursorMap((prev) => ({
           ...prev,
@@ -77,10 +83,14 @@ export const GuestbookContainer = ({
             authenticated: boolean;
             user: AuthUser | null;
             turnstileSiteKey?: string;
+            allowAnonymous?: boolean;
           };
           setUser(data.user);
           if (data.turnstileSiteKey) {
             setActiveSiteKey(data.turnstileSiteKey);
+          }
+          if (typeof data.allowAnonymous === "boolean") {
+            setAllowAnonymous(data.allowAnonymous);
           }
         }
       } catch {
@@ -165,11 +175,17 @@ export const GuestbookContainer = ({
         </div>
       )}
 
-      <GuestbookAuthBar user={user} isLoading={isAuthLoading} onLogout={handleLogout} />
+      <GuestbookAuthBar
+        user={user}
+        isLoading={isAuthLoading}
+        allowAnonymous={allowAnonymous}
+        onLogout={handleLogout}
+      />
 
       <GuestbookForm
         user={user}
         turnstileSiteKey={activeSiteKey}
+        allowAnonymous={allowAnonymous}
         onEntryCreated={handleEntryCreated}
       />
 
