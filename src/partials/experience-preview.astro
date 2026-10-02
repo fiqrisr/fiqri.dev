@@ -65,7 +65,7 @@ const previousRoles = experience.slice(1);
 
       <!-- 2-Column Preview Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-10">
-        <!-- Left: Featured Current Role (Lintasarta) -->
+        <!-- Left: Featured Latest Role (Lintasarta) -->
         <div class="lg:col-span-6 flex flex-col">
           <div
             class="flex-1 bg-primary border-4 border-black p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative flex flex-col justify-between"
@@ -77,11 +77,19 @@ const previousRoles = experience.slice(1);
             <div>
               <div class="flex items-center justify-between gap-2 mb-4">
                 <span class="font-mono text-xs font-bold uppercase bg-border-dark text-bg-base px-3 py-1 border-2 border-black">
-                  CURRENT ROLE // {currentRole.period}
+                  {currentRole.status === "ACTIVE" ? "CURRENT ROLE" : "LATEST ROLE"} // {currentRole.period}
                 </span>
-                <span class="font-mono text-[10px] font-black uppercase px-2.5 py-1 bg-secondary text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] tracking-widest animate-pulse">
-                  ACTIVE
-                </span>
+                {
+                  currentRole.status === "ACTIVE" ? (
+                    <span class="font-mono text-[10px] font-black uppercase px-2.5 py-1 bg-secondary text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] tracking-widest animate-pulse">
+                      ACTIVE
+                    </span>
+                  ) : (
+                    <span class="font-mono text-[10px] font-black uppercase px-2.5 py-1 bg-bg-base text-border-dark border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] tracking-widest">
+                      ARCHIVED
+                    </span>
+                  )
+                }
               </div>
 
               <h3 class="font-heading font-bold text-3xl md:text-4xl text-border-dark leading-tight mb-1">
@@ -116,7 +124,7 @@ const previousRoles = experience.slice(1);
               <!-- Brief description -->
               <div class="bg-bg-base border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-4">
                 <p class="font-body text-xs md:text-sm text-border-dark leading-relaxed">
-                  Leading architecture for the B2B AI Marketplace across Buyer and Seller platforms. Cut API server load by 40% via caching, reduced Docker images by 83% (3GB→500MB), achieved Rank #1 SEO, and integrated enterprise payment gateways.
+                  Led architecture for the B2B AI Marketplace across Buyer and Seller platforms. Cut API server load by 40% via caching, reduced Docker images by 83% (3GB→500MB), achieved Rank #1 SEO, and integrated enterprise payment gateways.
                 </p>
               </div>
 

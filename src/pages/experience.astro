@@ -104,7 +104,7 @@ const { personal, experience, education, certifications } = portfolioData;
             </h2>
           </div>
           <span class="font-mono text-xs text-border-dark/50 hidden sm:inline">
-            2020 — PRESENT
+            {experience.some((e) => e.status === "ACTIVE") ? "2020 — PRESENT" : "2020 — 2026"}
           </span>
         </div>
 

@@ -74,8 +74,8 @@ export const portfolioData: PortfolioData = {
       company: "Lintasarta",
       role: "Software Engineer",
       location: "Jakarta",
-      period: "2024 – PRESENT",
-      status: "ACTIVE",
+      period: "2024 – 2026",
+      status: "ARCHIVED",
       description:
         "Led the frontend architecture for the B2B AI Marketplace, managing release cycles for both Buyer and Seller platforms. Drove massive performance optimizations—83% Docker image reduction (3GB→500MB), 30% CSS bundle cut, and Rank #1 SEO—while enforcing strict code quality via SonarQube and reducing API server load by 40% through TanStack Query caching strategies. Mentored new hires and integrated Midtrans/Xendit payment gateways for high-volume traffic.",
     },
