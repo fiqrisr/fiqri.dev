@@ -478,4 +478,8 @@
     background-color: #c99200;
     color: #111111;
   }
+
+  html.dark .border-black\/40 {
+    border-color: #eaeaea;
+  }
 }

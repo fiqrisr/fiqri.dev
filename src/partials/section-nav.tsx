@@ -207,7 +207,7 @@ export const SectionNav = ({ currentPath = "/" }: SectionNavProps) => {
               className="inline-block h-2.5 w-2.5 bg-hazard border border-black"
               aria-hidden="true"
             />
-            <span className="font-heading font-bold text-sm tracking-tight text-black group-hover:text-hazard transition-colors">
+            <span className="font-heading font-bold text-sm tracking-tight group-hover:text-hazard transition-colors">
               FIQRI.DEV
             </span>
             <span className="font-mono text-[10px] text-border-dark/60 border border-black/40 px-1 bg-bg-base">
